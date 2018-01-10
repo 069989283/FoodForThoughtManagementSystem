@@ -9,6 +9,6 @@ package foodforthoughtmanagementsystem;
  *
  * @author 069989283
  */
-public interface Tracker {
+public interface hourTracker {
     
 }
