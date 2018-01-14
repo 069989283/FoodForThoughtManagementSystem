@@ -16,6 +16,7 @@ public class FoodForThoughtManagementSystem {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Members a = new Members("069989283"); 
     }
     
 }
