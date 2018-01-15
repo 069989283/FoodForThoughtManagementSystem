@@ -13,7 +13,8 @@ import java.io.IOException;
  * @author 069989283
  */
 public class MoneyVerification {
-    String user; 
+    String user, date, store; 
+    boolean verified; 
     File file; 
     public MoneyVerification(String u){
         user=u; 
