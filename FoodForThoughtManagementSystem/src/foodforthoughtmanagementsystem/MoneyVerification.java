@@ -18,7 +18,10 @@ import javax.swing.JOptionPane;
  * @author 069989283
  */
 public class MoneyVerification {
+    int entry; 
     String user, date, store, status; 
+    String line="";
+    String[] splitLine=null; 
     boolean verify; 
     File file; 
     public MoneyVerification(String u){
@@ -29,7 +32,7 @@ public class MoneyVerification {
             if (work){
                 newMember();
             } else {
-                existingMember("13/01/2018", "Superstore", false);
+                existingMember("13/01/2018", "Superstore");
             }
         } catch (IOException e) {
             System.out.println("Exception Occurred:");
@@ -49,18 +52,22 @@ public class MoneyVerification {
 	pw.println(status);
         pw.close(); 
     }
-    public void existingMember (String d, String inStore, boolean v){
+    public void existingMember (String d, String inStore){
         try {
             Scanner s = new Scanner(file);
             //get status 
             status = s.nextLine();
+            while (s.hasNextLine()) {
+                line = s.nextLine();
+                splitLine = line.split(",");
+            }
         //catches errors and displays error box 
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "You really messed up!");
         }
         date=d; 
         store=inStore; 
-        verify=v; 
+        verify=false; 
         //setting up file writer 
         PrintWriter pw = null;
         try {
@@ -73,33 +80,25 @@ public class MoneyVerification {
         pw.close(); 
         displayingHours(); 
     } 
-    public void displayingHours (){
-        String line="";
-        String[] splitLine=null; 
+    public void displayingHours (){ 
         //scans file 
         Scanner s=null;
         System.out.println("Date\t\tStore\t\tVerified");
         try {
-            int tracker=0; 
             s = new Scanner(file);
+            line = s.nextLine();
             while (s.hasNextLine()) {
-                if (tracker==0){
-                    line = s.nextLine();
+                //sees if inputed username equals a username in the database 
+                line = s.nextLine();
+                splitLine = line.split(",");
+                date=splitLine[0]; 
+                store=splitLine[1];
+                verify=Boolean.parseBoolean(splitLine[2]);
+                if (verify==true){
+                    System.out.println(date+"\t"+store+"\tYes"); 
+                } else {
+                    System.out.println(date+"\t"+store+"\tNo"); 
                 }
-                else {
-                    //sees if inputed username equals a username in the database 
-                    line = s.nextLine();
-                    splitLine = line.split(",");
-                    date=splitLine[0]; 
-                    store=splitLine[1];
-                    verify=Boolean.parseBoolean(splitLine[2]);
-                    if (verify==true){
-                        System.out.println(date+"\t"+store+"\tYes"); 
-                    } else {
-                        System.out.println(date+"\t"+store+"\tNo"); 
-                    }
-                }
-                tracker++; 
             }
         //catches errors and displays error box 
         } catch (FileNotFoundException ex) {
