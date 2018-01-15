@@ -45,6 +45,7 @@ public class Members {
         //saving account intfo to database 
 	pw.println(status);
         pw.close(); 
+        
     }
     public void existingMember (){
         Hours a = new Hours(file, status); 
