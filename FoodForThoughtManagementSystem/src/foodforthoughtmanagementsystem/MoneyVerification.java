@@ -61,6 +61,7 @@ public class MoneyVerification {
                 line = s.nextLine();
                 splitLine = line.split(",");
             }
+            entry=(int)Double.parseDouble(splitLine[0])+1;
         //catches errors and displays error box 
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "You really messed up!");
@@ -76,14 +77,14 @@ public class MoneyVerification {
             JOptionPane.showMessageDialog(null, "There was an Error. ");
         } 
         //saving account intfo to database 
-	pw.println(date+","+store+","+verify);
+	pw.println(entry+","+date+","+store+","+verify);
         pw.close(); 
         displayingHours(); 
     } 
     public void displayingHours (){ 
         //scans file 
         Scanner s=null;
-        System.out.println("Date\t\tStore\t\tVerified");
+        System.out.println("\tDate\t\tStore\t\tVerified");
         try {
             s = new Scanner(file);
             line = s.nextLine();
@@ -91,15 +92,62 @@ public class MoneyVerification {
                 //sees if inputed username equals a username in the database 
                 line = s.nextLine();
                 splitLine = line.split(",");
-                date=splitLine[0]; 
-                store=splitLine[1];
-                verify=Boolean.parseBoolean(splitLine[2]);
+                entry=(int)Double.parseDouble(splitLine[0]); 
+                date=splitLine[1]; 
+                store=splitLine[2];
+                verify=Boolean.parseBoolean(splitLine[3]);
                 if (verify==true){
-                    System.out.println(date+"\t"+store+"\tYes"); 
+                    System.out.println(entry+".\t"+date+"\t"+store+"\tYes"); 
                 } else {
-                    System.out.println(date+"\t"+store+"\tNo"); 
+                    System.out.println(entry+".\t"+date+"\t"+store+"\tNo"); 
                 }
             }
+        //catches errors and displays error box 
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "You really messed up!");
+        }
+    }
+    public void verifying (int lineNumber){
+        //scans file 
+        Scanner s=null;
+        line = s.nextLine();
+        PrintWriter pw = null;
+        try {
+            s = new Scanner(file);
+            line = s.nextLine();
+            status=line; 
+            try {
+                pw = new PrintWriter (new FileWriter(file));
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "There was an Error. ");
+            } 
+            pw.println(status);
+            while (s.hasNextLine()) {
+                //sees if inputed username equals a username in the database 
+                line = s.nextLine(); 
+                splitLine = line.split(",");
+                entry=Integer.parseInt(splitLine[0]);
+                if (entry==lineNumber){
+                    verify=Boolean.parseBoolean(splitLine[3]);
+                    if (verify==true){
+                        JOptionPane.showMessageDialog(null, "This entry has already been verified so there is no need to verify it. ");
+                    } else {
+                        System.out.println("\tDate\t\tStore\t\tVerified");
+                        date=splitLine[1]; 
+                        store=splitLine[2];
+                        System.out.println(entry+".\t"+date+"\t"+store+"\tNo"); 
+                        int dialogButton = JOptionPane.YES_NO_OPTION;
+                        JOptionPane.showConfirmDialog (null, "Would you like to verify this?","Question",dialogButton);
+                        if(dialogButton == JOptionPane.YES_OPTION){
+                            verify=true; 
+                            pw.println(entry+","+date+","+store+","+verify);
+                        } 
+                    }
+                } else {
+                    pw.println(line);
+                }
+            }
+            pw.close(); 
         //catches errors and displays error box 
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "You really messed up!");
