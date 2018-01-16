@@ -5,16 +5,19 @@
  */
 package foodforthoughtmanagementsystem.panels;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author 073685257
  */
-public class Panel04_DefaultLeader extends javax.swing.JFrame {
+public class Panel02_DefaultLeader extends javax.swing.JFrame {
 
     /**
      * Creates new form Panel04_DefaultLeader
      */
-    public Panel04_DefaultLeader() {
+    public Panel02_DefaultLeader() {
         initComponents();
     }
 
@@ -28,7 +31,7 @@ public class Panel04_DefaultLeader extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        timeInOut = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
@@ -36,7 +39,12 @@ public class Panel04_DefaultLeader extends javax.swing.JFrame {
 
         jButton1.setText("View History");
 
-        jButton2.setText("Sign in");
+        timeInOut.setText("Sign in");
+        timeInOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeInOutActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Money");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -59,7 +67,7 @@ public class Panel04_DefaultLeader extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4)
-                    .addComponent(jButton2))
+                    .addComponent(timeInOut))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -68,7 +76,7 @@ public class Panel04_DefaultLeader extends javax.swing.JFrame {
                 .addGap(102, 102, 102)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(timeInOut))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
@@ -82,6 +90,19 @@ public class Panel04_DefaultLeader extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void timeInOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeInOutActionPerformed
+        // TODO add your handling code here:
+        Date d = new Date();
+        SimpleDateFormat a = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat s= new SimpleDateFormat("hh:mm:ss");
+        
+        
+        //save the time in
+        //show the user
+        timeInOut.setText("Sign Out");
+        
+    }//GEN-LAST:event_timeInOutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -100,28 +121,29 @@ public class Panel04_DefaultLeader extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Panel04_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Panel02_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Panel04_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Panel02_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Panel04_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Panel02_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Panel04_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Panel02_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Panel04_DefaultLeader().setVisible(true);
+                new Panel02_DefaultLeader().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton timeInOut;
     // End of variables declaration//GEN-END:variables
 }
