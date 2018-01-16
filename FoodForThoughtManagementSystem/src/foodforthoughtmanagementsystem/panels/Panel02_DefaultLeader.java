@@ -9,12 +9,12 @@ package foodforthoughtmanagementsystem.panels;
  *
  * @author 073685257
  */
-public class Panel04_DefaultLeader extends javax.swing.JFrame {
+public class Panel02_DefaultLeader extends javax.swing.JFrame {
 
     /**
      * Creates new form Panel04_DefaultLeader
      */
-    public Panel04_DefaultLeader() {
+    public Panel02_DefaultLeader() {
         initComponents();
     }
 
@@ -100,20 +100,21 @@ public class Panel04_DefaultLeader extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Panel04_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Panel02_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Panel04_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Panel02_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Panel04_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Panel02_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Panel04_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Panel02_DefaultLeader.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Panel04_DefaultLeader().setVisible(true);
+                new Panel02_DefaultLeader().setVisible(true);
             }
         });
     }

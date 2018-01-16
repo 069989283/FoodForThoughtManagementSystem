@@ -9,12 +9,12 @@ package foodforthoughtmanagementsystem.panels;
  *
  * @author 073685257
  */
-public class Panel05_LeaderManagement extends javax.swing.JPanel {
+public class Panel03_HoursHistory extends javax.swing.JPanel {
 
     /**
      * Creates new form Panel05_LeaderManagement
      */
-    public Panel05_LeaderManagement() {
+    public Panel03_HoursHistory() {
         initComponents();
     }
 
