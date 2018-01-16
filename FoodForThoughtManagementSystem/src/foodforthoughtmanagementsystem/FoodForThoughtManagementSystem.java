@@ -18,6 +18,7 @@ public class FoodForThoughtManagementSystem {
         // TODO code application logic here
         Members a = new Members("069989283"); 
         MoneyVerification b = new MoneyVerification ("069989283"); 
+        b.verifying(4);
     }
     
 }
