@@ -11,12 +11,15 @@ import java.io.File;
  *
  * @author 073685257
  */
-public class Participant extends Hours{
+public class Participant{ //extends Hours{
 
-    public Participant(File f, String s) {
-        super(f, s);
-    }
-    
-    
+    public Participant(String firstName,String lastName, int studentNumber,int totalHours, char status) {
+       String fn= firstName;
+       String ln= lastName;
+       int sn= studentNumber;
+       int th= totalHours;
+       char s= status;
+       
+    }    
     
 }

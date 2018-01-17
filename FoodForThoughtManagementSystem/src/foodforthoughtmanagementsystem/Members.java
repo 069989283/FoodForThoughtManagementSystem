@@ -30,7 +30,6 @@ public class Members {
             }
         } catch (IOException e) {
             System.out.println("Exception Occurred:");
-	    e.printStackTrace();
         }
     }
     public void newMember (String s){
