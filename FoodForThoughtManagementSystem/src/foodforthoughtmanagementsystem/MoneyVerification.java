@@ -22,7 +22,8 @@ public class MoneyVerification {
     String user, date, store, status; 
     String line="";
     String[] splitLine=null; 
-    boolean verify; 
+    boolean verify;
+    double amount; 
     File file; 
     public MoneyVerification(String u){
         user=u; 
@@ -53,19 +54,7 @@ public class MoneyVerification {
         pw.close(); 
     }
     public void existingMember (String d, String inStore){
-        try {
-            Scanner s = new Scanner(file);
-            //get status 
-            status = s.nextLine();
-            while (s.hasNextLine()) {
-                line = s.nextLine();
-                splitLine = line.split(",");
-            }
-            entry=(int)Double.parseDouble(splitLine[0])+1;
-        //catches errors and displays error box 
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "You really messed up!");
-        }
+        entry=findNumberOfEntries(); 
         date=d; 
         store=inStore; 
         verify=false; 
@@ -109,21 +98,17 @@ public class MoneyVerification {
     }
     public void verifying (int lineNumber){
         //scans file 
+        String [] lineFile = new String[findNumberOfEntries()];
+        int lineNum=0; 
         Scanner s=null;
-        line = s.nextLine();
         PrintWriter pw = null;
         try {
             s = new Scanner(file);
             line = s.nextLine();
-            status=line; 
-            try {
-                pw = new PrintWriter (new FileWriter(file));
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "There was an Error. ");
-            } 
-            pw.println(status);
+            //status=line;
+            lineFile[lineNum]=line; 
             while (s.hasNextLine()) {
-                //sees if inputed username equals a username in the database 
+                lineNum++; 
                 line = s.nextLine(); 
                 splitLine = line.split(",");
                 entry=Integer.parseInt(splitLine[0]);
@@ -131,26 +116,56 @@ public class MoneyVerification {
                     verify=Boolean.parseBoolean(splitLine[3]);
                     if (verify==true){
                         JOptionPane.showMessageDialog(null, "This entry has already been verified so there is no need to verify it. ");
+                        lineFile[lineNum]=(entry+","+date+","+store+","+verify); 
                     } else {
                         System.out.println("\tDate\t\tStore\t\tVerified");
                         date=splitLine[1]; 
                         store=splitLine[2];
                         System.out.println(entry+".\t"+date+"\t"+store+"\tNo"); 
-                        int dialogButton = JOptionPane.YES_NO_OPTION;
-                        JOptionPane.showConfirmDialog (null, "Would you like to verify this?","Question",dialogButton);
-                        if(dialogButton == JOptionPane.YES_OPTION){
+                        //Custom button text
+                        Object[] options = {"Yes","No"};
+                        int dialogButton = JOptionPane.showOptionDialog(null, "Would you like to verify this?","Verify",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[1]);
+                        if(dialogButton == 0){
                             verify=true; 
-                            pw.println(entry+","+date+","+store+","+verify);
-                        } 
+                            lineFile[lineNum]=(entry+","+date+","+store+","+verify); 
+                        } else {
+                            verify=false; 
+                            lineFile[lineNum]=(entry+","+date+","+store+","+verify);
+                        }
                     }
                 } else {
-                    pw.println(line);
+                    lineFile[lineNum]=line; 
                 }
-            }
-            pw.close(); 
+            } 
         //catches errors and displays error box 
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "You really messed up!");
         }
+        try {
+            pw = new PrintWriter (new FileWriter(file));
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "There was an Error. ");
+        } 
+        for (int a=0; a<=lineNum; a++){
+            pw.println(lineFile[a]);
+        }
+        pw.close();
+    }
+    private int findNumberOfEntries (){
+        int Entry=0; 
+        try {
+            Scanner s = new Scanner(file);
+            //get status 
+            status = s.nextLine();
+            while (s.hasNextLine()) {
+                line = s.nextLine();
+                splitLine = line.split(",");
+            }
+            Entry=(int)Double.parseDouble(splitLine[0])+1;
+        //catches errors and displays error box 
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "You really messed up!");
+        }
+        return Entry; 
     }
 }
