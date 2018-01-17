@@ -6,9 +6,13 @@
 package foodforthoughtmanagementsystem;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.RandomAccessFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,9 +22,15 @@ import javax.swing.JOptionPane;
 public class Members {
     String user, status; 
     File file; 
+    RandomAccessFile r; 
     public Members(String u){
         user=u; 
         file = new File (user+".txt");
+        try {
+            r = new RandomAccessFile ((user+".txt"),"rw");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Members.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try{
             boolean work = file.createNewFile(); 
             if (work){

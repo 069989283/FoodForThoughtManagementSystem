@@ -63,9 +63,10 @@ public class Hours {
         try {
             int tracker=0; 
             s = new Scanner(file);
+            line = s.nextLine();
             while (s.hasNextLine()) {
-                if (tracker==0){
-                    line = s.nextLine();
+                if (line.equals("")){
+                    break; 
                 }
                 else {
                 //sees if inputed username equals a username in the database 
@@ -88,11 +89,14 @@ public class Hours {
     private void getTop (){
         String line="";
         String[] splitLine=null; 
+        //boolean justStatus=true; 
         try {
             //scans file 
             Scanner s = new Scanner(file);
+            line = s.nextLine();
             //loops through file 
             while (s.hasNextLine()) {
+                //justStatus=false; 
                 //sees if inputed username equals a username in the database 
                 line = s.nextLine();
                 splitLine = line.split(",");
@@ -101,8 +105,14 @@ public class Hours {
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "You really messed up!");
         }
+        if (splitLine.equals(null)){
+            totalHours=0;
+            logHours=0;
+            unlogHours=0;
+        } else {
             totalHours=Double.parseDouble(splitLine[0]);
             logHours=Double.parseDouble(splitLine[1]);
             unlogHours=Double.parseDouble(splitLine[2]);
+        }
     }
 }
