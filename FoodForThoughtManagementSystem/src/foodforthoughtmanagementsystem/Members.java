@@ -21,26 +21,17 @@ import javax.swing.JOptionPane;
  */
 public class Members {
     String user, status; 
-    File file; 
-    RandomAccessFile r; 
-    public Members(String u){
+    RandomAccessFile file; 
+    public Members(String u) throws IOException{
         user=u; 
-        file = new File (user+".txt");
         try {
-            r = new RandomAccessFile ((user+".txt"),"rw");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Members.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try{
-            boolean work = file.createNewFile(); 
-            if (work){
-                newMember("Participant");
-            } else {
-                existingMember();
+            file.getFD();
+        } catch (NullPointerException ex) {
+            try {
+                file = new RandomAccessFile ((user+".txt"),"rw");
+            } catch (FileNotFoundException ex1) {
+                Logger.getLogger(Members.class.getName()).log(Level.SEVERE, null, ex1);
             }
-        } catch (IOException e) {
-            System.out.println("Exception Occurred:");
-	    e.printStackTrace();
         }
     }
     public void newMember (String s){
