@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class Panel02_DefaultLeader extends javax.swing.JFrame {
 
-    SimpleDateFormat s = new SimpleDateFormat("MM/dd/yyyy-hh:mm");
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy-hh:mm");
 
     /**
      * Creates new form Panel04_DefaultLeader
@@ -116,10 +116,9 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(dateField, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(activitySelection, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(timeInField)
-                                .addComponent(timeOutField, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)))))
+                            .addComponent(activitySelection, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(timeInField)
+                            .addComponent(timeOutField, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -183,8 +182,8 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
 
             //get date from that            
             try {
-                d = s.parse(dayOf + "-" + minIn);
-                d2 = s.parse(dayOf + "-" + minOut); //test date
+                d = sdf.parse(dayOf + "-" + minIn);
+                d2 = sdf.parse(dayOf + "-" + minOut); //test date
 
                 double hours = ((double) d2.getTime() - (double) d.getTime()) / 3600000; //code to get hours
                 System.out.println(hours);
@@ -217,8 +216,14 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
 
     private void activitySelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activitySelectionActionPerformed
         // TODO add your handling code here:
-
-
+        String temp = (String)activitySelection.getSelectedItem();
+        if (!temp.equals("R")){
+        jLabel1.setVisible(rootPaneCheckingEnabled);
+        jLabel2.setVisible(rootPaneCheckingEnabled);
+        dateField.setVisible(rootPaneCheckingEnabled);
+        timeInField.setVisible(rootPaneCheckingEnabled);
+        timeOutField.setVisible(rootPaneCheckingEnabled);
+        }
     }//GEN-LAST:event_activitySelectionActionPerformed
 
     /**
