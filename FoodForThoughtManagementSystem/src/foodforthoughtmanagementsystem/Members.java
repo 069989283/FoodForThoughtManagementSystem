@@ -6,9 +6,13 @@
 package foodforthoughtmanagementsystem;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.RandomAccessFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,34 +21,33 @@ import javax.swing.JOptionPane;
  */
 public class Members {
     String user, status; 
-    File file; 
-    public Members(String u){
+    RandomAccessFile file; 
+    public Members(String u) throws IOException{
         user=u; 
-        file = new File (user+".txt");
-        try{
-            boolean work = file.createNewFile(); 
-            if (work){
-                newMember("Participant");
-            } else {
-                existingMember();
-            }
-        } catch (IOException e) {
-            System.out.println("Exception Occurred:");
+        try {
+            file.getFD();
+        } catch (NullPointerException ex) {
+            newMember("Participant"); 
         }
     }
     public void newMember (String s){
         status=s; 
-        //setting up file writer 
-        PrintWriter pw = null;
         try {
-            pw = new PrintWriter (new FileWriter(file));
+                file = new RandomAccessFile ((user+".txt"),"rw");
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Members.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        RandomAccessFile raf=null;
+        try {
+            raf = new RandomAccessFile("test1.txt", "rw");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            raf.writeBytes("This is an example");
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "There was an Error. ");
-        } 
-        //saving account intfo to database 
-	pw.println(status);
-        pw.close(); 
-        
+            Logger.getLogger(Members.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public void existingMember (){
         Hours a = new Hours(file, status); 

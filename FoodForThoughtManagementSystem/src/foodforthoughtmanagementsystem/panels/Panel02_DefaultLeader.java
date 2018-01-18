@@ -7,12 +7,15 @@ package foodforthoughtmanagementsystem.panels;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author 073685257
  */
 public class Panel02_DefaultLeader extends javax.swing.JFrame {
+
+    SimpleDateFormat s = new SimpleDateFormat("MM/dd/yyyy-hh:mm");
 
     /**
      * Creates new form Panel04_DefaultLeader
@@ -34,12 +37,18 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
         timeInOut = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        timeInField = new javax.swing.JTextField();
+        timeOutField = new javax.swing.JTextField();
+        activitySelection = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        dateField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("View History");
 
-        timeInOut.setText("Sign in");
+        timeInOut.setText("Sign In");
         timeInOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 timeInOutActionPerformed(evt);
@@ -55,6 +64,38 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
 
         jButton4.setText("Manage");
 
+        timeInField.setText("hh:mm");
+        timeInField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeInFieldActionPerformed(evt);
+            }
+        });
+
+        timeOutField.setText("hh:mm");
+        timeOutField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeOutFieldActionPerformed(evt);
+            }
+        });
+
+        activitySelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "R", "B", "W" }));
+        activitySelection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                activitySelectionActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Time In:");
+
+        jLabel2.setText("Time Out:");
+
+        dateField.setText("MM/dd/yyyy");
+        dateField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -67,16 +108,38 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4)
-                    .addComponent(timeInOut))
-                .addContainerGap(114, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(timeInOut)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dateField, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(activitySelection, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(timeInField)
+                                .addComponent(timeOutField, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)))))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(102, 102, 102)
+                .addGap(24, 24, 24)
+                .addComponent(dateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(timeInField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(timeOutField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(timeInOut))
+                    .addComponent(timeInOut)
+                    .addComponent(activitySelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
@@ -93,16 +156,70 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
 
     private void timeInOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeInOutActionPerformed
         // TODO add your handling code here:
+
+//      0. Regular
+//      1. Buying
+//      2. Writing
         Date d = new Date();
-        SimpleDateFormat a = new SimpleDateFormat("MM/dd/yyyy");
-        SimpleDateFormat s= new SimpleDateFormat("hh:mm:ss");
-        
-        
-        //save the time in
-        //show the user
-        timeInOut.setText("Sign Out");
-        
+        Date d2;
+        if (timeInOut.getText().equalsIgnoreCase("Sign In") && activitySelection.getSelectedIndex() == 0) {
+            d = new Date();
+            //time in of the user equals this
+            //save the time in
+            //show the user
+            timeInOut.setText("Sign Out");
+        } else if (timeInOut.getText().equalsIgnoreCase("Sign Out")) {
+            //time out of the user equals this
+            d2 = new Date();
+
+            //retrieve TimeIn of the User
+            //calculate
+            double hours = ((double) d2.getTime() - (double) d.getTime()) / 3600000; //code to get hours
+            //store d2 and hours of the user
+        } else if (activitySelection.getSelectedIndex() != 0) {
+            String dayOf = dateField.getText();
+            String minIn = timeInField.getText();
+            String minOut = timeOutField.getText();
+
+            //get date from that            
+            try {
+                d = s.parse(dayOf + "-" + minIn);
+                d2 = s.parse(dayOf + "-" + minOut); //test date
+
+                double hours = ((double) d2.getTime() - (double) d.getTime()) / 3600000; //code to get hours
+                System.out.println(hours);
+                if (activitySelection.getSelectedIndex() == 1) {
+                    //TK add as buying
+                } else {
+                    //TK add as writing
+                }
+                
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+
+
     }//GEN-LAST:event_timeInOutActionPerformed
+
+    private void timeOutFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeOutFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timeOutFieldActionPerformed
+
+    private void timeInFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeInFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timeInFieldActionPerformed
+
+    private void dateFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateFieldActionPerformed
+
+    private void activitySelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activitySelectionActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_activitySelectionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -141,9 +258,15 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox activitySelection;
+    private javax.swing.JTextField dateField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField timeInField;
     private javax.swing.JButton timeInOut;
+    private javax.swing.JTextField timeOutField;
     // End of variables declaration//GEN-END:variables
 }

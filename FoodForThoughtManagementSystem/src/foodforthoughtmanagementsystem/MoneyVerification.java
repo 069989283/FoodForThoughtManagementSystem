@@ -22,7 +22,8 @@ public class MoneyVerification {
     String user, date, store, status; 
     String line="";
     String[] splitLine=null; 
-    boolean verify; 
+    boolean verify;
+    double amount; 
     File file; 
     public MoneyVerification(String u){
         user=u; 
@@ -121,12 +122,13 @@ public class MoneyVerification {
                         date=splitLine[1]; 
                         store=splitLine[2];
                         System.out.println(entry+".\t"+date+"\t"+store+"\tNo"); 
-                        int dialogButton = JOptionPane.YES_NO_OPTION;
-                        JOptionPane.showConfirmDialog (null, "Would you like to verify this?","Question",dialogButton);
-                        if(dialogButton == JOptionPane.YES_OPTION){
+                        //Custom button text
+                        Object[] options = {"Yes","No"};
+                        int dialogButton = JOptionPane.showOptionDialog(null, "Would you like to verify this?","Verify",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[1]);
+                        if(dialogButton == 0){
                             verify=true; 
                             lineFile[lineNum]=(entry+","+date+","+store+","+verify); 
-                        } else if (dialogButton == JOptionPane.NO_OPTION){
+                        } else {
                             verify=false; 
                             lineFile[lineNum]=(entry+","+date+","+store+","+verify);
                         }
