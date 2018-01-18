@@ -41,11 +41,9 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="dateField" pref="92" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="activitySelection" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
-                              <Component id="timeInField" max="32767" attributes="0"/>
-                              <Component id="timeOutField" alignment="0" pref="92" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="activitySelection" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
+                          <Component id="timeInField" max="32767" attributes="0"/>
+                          <Component id="timeOutField" alignment="0" pref="92" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
