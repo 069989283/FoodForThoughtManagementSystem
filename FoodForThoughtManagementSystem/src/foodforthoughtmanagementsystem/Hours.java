@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.RandomAccessFile;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
@@ -18,14 +19,15 @@ import javax.swing.JOptionPane;
  * @author LLeNeve
  */
 public class Hours {
-    File file; 
+    RandomAccessFile file; 
     double totalHours, logHours, unlogHours, hoursEarned;
     String date, activity, timeIn, timeOut, status; 
-    public Hours (File f, String s){
-        file = f; 
-        status = s; 
+    public Hours (RandomAccessFile f, String s){
+        file =f; 
+        status =s; 
     }
     public void addHours (String d, String tI, String tO, double h){
+        file=new File("1.txt");
         try {
             Scanner s = new Scanner(file);
             //get status 

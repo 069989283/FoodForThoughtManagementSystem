@@ -5,6 +5,10 @@
  */
 package foodforthoughtmanagementsystem;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 069989283
@@ -15,9 +19,8 @@ public class FoodForThoughtManagementSystem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         Members a = new Members("069989283"); 
-        MoneyVerification b = new MoneyVerification ("069989283"); 
+        //MoneyVerification b = new MoneyVerification ("069989283"); 
     }
     
 }

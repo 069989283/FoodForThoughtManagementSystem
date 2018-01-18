@@ -22,36 +22,36 @@ import javax.swing.JOptionPane;
 public class Members {
     String user, status; 
     RandomAccessFile file; 
-    public Members(String u) throws IOException{
+    public Members(String u) {
         user=u; 
         try {
-            file.getFD();
-        } catch (NullPointerException ex) {
-            newMember("Participant"); 
+            file = new RandomAccessFile ((user+".txt"),"rw");
+            newMember("P");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "There was an error. ");
         }
     }
     public void newMember (String s){
         status=s; 
         try {
-                file = new RandomAccessFile ((user+".txt"),"rw");
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Members.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        RandomAccessFile raf=null;
-        try {
-            raf = new RandomAccessFile("test1.txt", "rw");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            raf.writeBytes("This is an example");
+            file.seek(0);
+            System.out.println();
+            file.writeChars(status);
         } catch (IOException ex) {
-            Logger.getLogger(Members.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "There was an error. ");
         }
     }
     public void existingMember (){
-        Hours a = new Hours(file, status); 
-        a.addHours("13/01/2018", "1:00", "2:00", 1);
-        a.displayingHours();
+        //Hours a = new Hours(file, status); 
+        //a.addHours("13/01/2018", "1:00", "2:00", 1);
+        //a.displayingHours();
+    }
+    public boolean fileExists (){
+        File f = new File (user+".txt"); 
+        if (f.exists()==true){
+            return true; 
+        } else {
+            return false; 
+        }
     }
 }
