@@ -15,11 +15,13 @@ import java.util.logging.Logger;
  * @author 073685257
  */
 public class Panel01_LoginScreen extends javax.swing.JPanel {
-
+    
+    public static String loginNumber;
     /**
      * Creates new form LoginScreen1
      */
     public Panel01_LoginScreen() {
+        Panel01_LoginScreen.loginNumber = jTextField1.getText();
         initComponents();
     }
 
