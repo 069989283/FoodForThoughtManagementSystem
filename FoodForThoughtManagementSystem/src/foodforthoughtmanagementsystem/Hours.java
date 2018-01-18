@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
@@ -24,6 +25,9 @@ public class Hours {
     double totalHours, logHours, unlogHours, hoursEarned;
     String date, activity, timeIn, timeOut, status;
 
+    public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
+    public static SimpleDateFormat sdfClock = new SimpleDateFormat("hh:mm");
+    
     public Hours(File f, String s) {
         file = f;
         status = s;
@@ -121,34 +125,47 @@ public class Hours {
         }
     }
 
+    public static double getDuration(String timeIn, String timeOut) {
+        double hours = 0;
+        try {
+            //convert string to date
+           Date dateTimeIn = sdfClock.parse(timeIn);
+           Date dateTimeOut = sdfClock.parse(timeOut);
+           //get the difference between the dates
+           hours = ((double) dateTimeOut.getTime() - (double) dateTimeIn.getTime()) / 3600000;
+        } catch (Exception e) {
+            System.out.println(e.getMessage() + "getDuration() messed up.");
+        }
+        return hours;
+    }
+
     /**
      * @param studentNumber
      * @param activity
      * @param timeIn
      */
-    public void storeTimeIn(int studentNumber, char activity, Date timeIn) {
+    public void storeTimeIn(String studentNumber, char activity, Date timeIn) {
         File tempStore = new File("TemporaryStorage.txt");
         PrintWriter pw = null;
         try {
             pw = new PrintWriter(new FileWriter(tempStore, true));
             //saving temp info into file
-            pw.println(studentNumber + "," + activity + "," + timeIn);
+            pw.println(studentNumber + "," + sdfDay.format(timeIn) + "," + activity + "," + sdfClock.format(timeIn));
             pw.close();
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Tried to store a thing that couldn't be stored");
         }
     }
 
-    public void storeTimeOut(int studentNumber, Date timeOut) {
+    public void storeTimeOut(String studentNumber, Date timeOut) {
         File tempStore = new File("TemporaryStorage.txt");
         try {
             Scanner s = new Scanner(tempStore);
             while (s.hasNextLine()) {
-                String[] timeIn = s.nextLine().split(",");
-                int tempStudentID = Integer.parseInt(timeIn[0]);
-                if (tempStudentID == studentNumber) {
+                String[] storedTimesIn = s.nextLine().split(",");
+                if (storedTimesIn[0].equals(studentNumber)) {
                     //store the stuff in the actual file
-                    addHours("date", "String tI", timeOut.toString(), 8);
+                    addHours(storedTimesIn[1], storedTimesIn[3], sdfClock.format(timeOut), 8);
                 }
             }
             //catches errors and displays error box 

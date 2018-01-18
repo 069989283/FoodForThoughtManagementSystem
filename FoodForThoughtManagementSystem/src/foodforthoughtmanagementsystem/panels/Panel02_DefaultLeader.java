@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class Panel02_DefaultLeader extends javax.swing.JFrame {
 
-    SimpleDateFormat s = new SimpleDateFormat("MM/dd/yyyy-hh:mm");
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy-hh:mm");
 
     /**
      * Creates new form Panel04_DefaultLeader
@@ -182,8 +182,8 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
 
             //get date from that            
             try {
-                d = s.parse(dayOf + "-" + minIn);
-                d2 = s.parse(dayOf + "-" + minOut); //test date
+                d = sdf.parse(dayOf + "-" + minIn);
+                d2 = sdf.parse(dayOf + "-" + minOut); //test date
 
                 double hours = ((double) d2.getTime() - (double) d.getTime()) / 3600000; //code to get hours
                 System.out.println(hours);
