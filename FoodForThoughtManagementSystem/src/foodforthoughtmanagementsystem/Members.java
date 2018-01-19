@@ -24,19 +24,18 @@ public class Members {
     RandomAccessFile file; 
     public Members(String u) {
         user=u; 
-        try {
-            file = new RandomAccessFile ((user+".txt"),"rw");
-            newMember("P");
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "There was an error. ");
-        }
+        newMember("P");
+        Hours a = new Hours (file, status);
+        a.addHours("13/01/2018", "R", "1:00", "2:00", 1);
     }
     public void newMember (String s){
         status=s; 
         try {
+            file = new RandomAccessFile ((user+".txt"),"rw");
             file.seek(0);
             System.out.println();
-            file.writeChars(status);
+            //file.writeChars(status+"000");
+            file.writeBytes(status+",0,0,0");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }

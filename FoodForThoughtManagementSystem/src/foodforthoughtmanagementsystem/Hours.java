@@ -14,6 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.RandomAccessFile;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,35 +27,34 @@ public class Hours {
     double totalHours, logHours, unlogHours, hoursEarned;
     String date, activity, timeIn, timeOut, status; 
     public Hours (RandomAccessFile f, String s){
-        file =f; 
-        status =s; 
+        file=f; 
+        status=s; 
     }
 
-    public void addHours(String d, String tI, String tO, double h) {
-        try {
-            Scanner s = new Scanner(file);
-            //get status 
-            status = s.nextLine();
-            //catches errors and displays error box 
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "You really messed up!");
-        }
+    public void addHours(String d, String a, String tI, String tO, double h) {
         date = d;
         activity = status;
         timeIn = tI;
         timeOut = tO;
+        //hoursEarned=getDuration(timeIn, timeOut);
         hoursEarned = h;
-        getTop();
-        totalHours += hoursEarned;
-        unlogHours += hoursEarned;
-        //setting up file writer 
-        PrintWriter pw = null;
+        String line="";
+        String [] splitLine=null; 
+        //getTop();
         try {
-            pw = new PrintWriter(new FileWriter(file, true));
+            file.seek(0);
+            line=file.readLine();
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an Error. ");
         }
+        splitLine=line.split(","); 
+        totalHours = Double.parseDouble(splitLine[1]);
+        logHours=Double.parseDouble(splitLine[2]);
+        unlogHours=Double.parseDouble(splitLine[3]);
+        totalHours += hoursEarned;
+        unlogHours += hoursEarned;
         //saving account intfo to database 
+        
         pw.println(totalHours + "," + logHours + "," + unlogHours + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned);
         pw.close();
     }
