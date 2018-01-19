@@ -26,7 +26,7 @@ public class Members {
         user=u; 
         newMember("P");
         Hours a = new Hours (file, status);
-        a.addHours("13/01/2018", "R", "1:00", "2:00", 1);
+        a.addFirstHours("13/01/2018", "R", "1:00", "2:00");
     }
     public void newMember (String s){
         status=s; 
@@ -35,7 +35,7 @@ public class Members {
             file.seek(0);
             System.out.println();
             //file.writeChars(status+"000");
-            file.writeBytes(status+",0,0,0");
+            file.writeBytes(status+",0.0,0,0,000");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
