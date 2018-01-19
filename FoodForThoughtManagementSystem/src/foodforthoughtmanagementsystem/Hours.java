@@ -26,6 +26,10 @@ public class Hours {
     RandomAccessFile file; 
     double totalHours, logHours, unlogHours, hoursEarned;
     String date, activity, timeIn, timeOut, status; 
+    
+public static SimpleDateFormat sdfClock = new SimpleDateFormat("hh:mm");
+public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
+    
     public Hours (RandomAccessFile f, String s){
         file=f; 
         status=s; 
@@ -162,7 +166,7 @@ public class Hours {
                 String[] storedTimesIn = s.nextLine().split(",");
                 if (storedTimesIn[0].equals(studentNumber)) {
                     //store the stuff in the actual file
-                    addHours(storedTimesIn[1], storedTimesIn[3], sdfClock.format(timeOut), 8);
+                    //addHours(storedTimesIn[1], storedTimesIn[3], sdfClock.format(timeOut), 8);
                 }
             }
             //catches errors and displays error box 
