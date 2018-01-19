@@ -120,7 +120,6 @@ public class Hours {
         String[] splitLine = null;
         //scans file 
         Scanner s = null;
-        getTop();
         System.out.println("Total Hours: " + totalHours + "\nLogged Hours: " + logHours + "\nUnlogged Hours: " + unlogHours + "\nDate\t\tActivity\tTime In\t\tTime Out\tHours");
         try {
             int tracker = 0;
