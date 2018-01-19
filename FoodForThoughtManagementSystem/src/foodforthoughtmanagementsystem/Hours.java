@@ -23,70 +23,72 @@ import javax.swing.JOptionPane;
  * @author LLeNeve
  */
 public class Hours {
-    RandomAccessFile file; 
+
+    RandomAccessFile file;
     double totalHours, logHours, unlogHours, hoursEarned;
-    String date, activity, timeIn, timeOut, status; 
-    int verify; 
-    
-public static SimpleDateFormat sdfClock = new SimpleDateFormat("hh:mm");
-public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
-    
-    public Hours (RandomAccessFile f, String s){
-        file=f; 
-        status=s; 
+    String date, activity, timeIn, timeOut, status;
+    int verify;
+
+    public static SimpleDateFormat sdfClock = new SimpleDateFormat("hh:mm");
+    public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
+
+    public Hours(RandomAccessFile f, String s) {
+        file = f;
+        status = s;
     }
 
     public void addFirstHours(String d, String a, String tI, String tO) {
-        int lineNum=1; 
+        int lineNum = 1;
         date = d;
         activity = status;
         timeIn = tI;
         timeOut = tO;
-        hoursEarned=getDuration(timeIn, timeOut);
-        verify=0; 
-        String line="";
-        String [] splitLine=null; 
+        hoursEarned = getDuration(timeIn, timeOut);
+        verify = 0;
+        String line = "";
+        String[] splitLine = null;
         try {
             file.seek(0);
-            line=file.readLine();
+            line = file.readLine();
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an Error. ");
         }
-        splitLine=line.split(","); 
+        splitLine = line.split(",");
         totalHours = Double.parseDouble(splitLine[1]);
-        logHours=Double.parseDouble(splitLine[2]);
-        unlogHours=Double.parseDouble(splitLine[3]);
+        logHours = Double.parseDouble(splitLine[2]);
+        unlogHours = Double.parseDouble(splitLine[3]);
         totalHours += hoursEarned;
         //saving account intfo to database 
         try {
             //file.seek(44);
             file.seek(2);
             System.out.println();
-            file.writeBytes(totalHours+",0,0,001");
+            file.writeBytes(totalHours + ",0,0,001");
             file.seek(13);
             System.out.println();
-            file.writeBytes("\r\n00"+lineNum+","+date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned+","+verify);
+            file.writeBytes("\r\n00" + lineNum + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned + "," + verify);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
     }
+
     public void addHours(String d, String a, String tI, String tO) {
         int lineNum; 
         date = d;
         activity = status;
         timeIn = tI;
         timeOut = tO;
-        hoursEarned=getDuration(timeIn, timeOut);
-        verify=0; 
-        String line="";
-        String [] splitLine=null; 
+        hoursEarned = getDuration(timeIn, timeOut);
+        verify = 0;
+        String line = "";
+        String[] splitLine = null;
         try {
             file.seek(0);
-            line=file.readLine();
+            line = file.readLine();
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an Error. ");
         }
-        splitLine=line.split(","); 
+        splitLine = line.split(",");
         totalHours = Double.parseDouble(splitLine[1]);
         logHours=Double.parseDouble(splitLine[2]);
         unlogHours=Double.parseDouble(splitLine[3]);
@@ -101,12 +103,12 @@ public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
             file.seek(13+(lineNum-1)*36);
             //file.seek(49+(lineNum*36));
             System.out.println();
-            if (lineNum<10){
-                file.writeBytes("\r\n00"+lineNum+","+date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned+","+verify);
-            } else if (lineNum<100&&lineNum>9){
-                file.writeBytes("\r\n0"+lineNum+","+date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned+","+verify);
+            if (lineNum < 10) {
+                file.writeBytes("\r\n00" + lineNum + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned + "," + verify);
+            } else if (lineNum < 100 && lineNum > 9) {
+                file.writeBytes("\r\n0" + lineNum + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned + "," + verify);
             } else {
-                file.writeBytes("\r\n"+lineNum+","+date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned+","+verify);
+                file.writeBytes("\r\n" + lineNum + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned + "," + verify);
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
@@ -146,14 +148,49 @@ public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
         }
     }
 
+    /**
+     * Pads the string input from the front
+     *
+     * @param input
+     * @param paddingLength
+     * @return
+     */
+    public static String pad(String input, int paddingLength) {
+        int remainingLength = paddingLength - input.length();
+        String tempPad = "";
+        for (int i = 0; i < remainingLength; i++) {
+            tempPad = tempPad + " ";
+        }
+        return tempPad + input;
+    }
+
+    /**
+     * Removes the space padding of the input at the front
+     *
+     * @param input
+     * @return
+     */
+    public static String unPad(String input) {
+        int tempUnPad = 0;
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == ' ') {
+                tempUnPad++;
+            } else {
+                break;
+            }
+        }
+        String unPadded = input.substring(tempUnPad, input.length());
+        return unPadded;
+    }
+
     public static double getDuration(String timeIn, String timeOut) {
         double hours = 0;
         try {
             //convert string to date
-           Date dateTimeIn = sdfClock.parse(timeIn);
-           Date dateTimeOut = sdfClock.parse(timeOut);
-           //get the difference between the dates
-           hours = ((double) dateTimeOut.getTime() - (double) dateTimeIn.getTime()) / 3600000;
+            Date dateTimeIn = sdfClock.parse(timeIn);
+            Date dateTimeOut = sdfClock.parse(timeOut);
+            //get the difference between the dates
+            hours = ((double) dateTimeOut.getTime() - (double) dateTimeIn.getTime()) / 3600000;
         } catch (Exception e) {
             System.out.println(e.getMessage() + "getDuration() messed up.");
         }
@@ -186,7 +223,7 @@ public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
                 String[] storedTimesIn = s.nextLine().split(",");
                 if (storedTimesIn[0].equals(studentNumber)) {
                     //store the stuff in the actual file
-                    //addHours(storedTimesIn[1], storedTimesIn[3], sdfClock.format(timeOut), 8);
+                    addHours(storedTimesIn[1], storedTimesIn[3], storedTimesIn[2], sdfClock.format(timeOut));
                 }
             }
             //catches errors and displays error box 
