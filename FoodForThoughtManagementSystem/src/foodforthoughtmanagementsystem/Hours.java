@@ -182,6 +182,41 @@ public class Hours {
         return unPadded;
     }
 
+    /**
+     * Pads the string input from the front
+     *
+     * @param input
+     * @param paddingLength
+     * @return
+     */
+    public static String pad(String input, int paddingLength) {
+        int remainingLength = paddingLength - input.length();
+        String tempPad = "";
+        for (int i = 0; i < remainingLength; i++) {
+            tempPad = tempPad + " ";
+        }
+        return tempPad + input;
+    }
+
+    /**
+     * Removes the space padding of the input at the front
+     *
+     * @param input
+     * @return
+     */
+    public static String unPad(String input) {
+        int tempUnPad = 0;
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == ' ') {
+                tempUnPad++;
+            } else {
+                break;
+            }
+        }
+        String unPadded = input.substring(tempUnPad, input.length());
+        return unPadded;
+    }
+
     public static double getDuration(String timeIn, String timeOut) {
         double hours = 0;
         try {
