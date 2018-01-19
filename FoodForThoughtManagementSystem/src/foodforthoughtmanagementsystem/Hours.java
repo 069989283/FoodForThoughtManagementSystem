@@ -26,27 +26,27 @@ public class Hours {
 
     RandomAccessFile file;
     double totalHours, logHours, unlogHours, hoursEarned;
-    String date, activity, timeIn, timeOut, status; 
-    int verify; 
-    
-public static SimpleDateFormat sdfClock = new SimpleDateFormat("hh:mm");
-public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
-    
-    public Hours (RandomAccessFile f, String s){
-        file=f; 
-        status=s; 
+    String date, activity, timeIn, timeOut, status;
+    int verify;
+
+    public static SimpleDateFormat sdfClock = new SimpleDateFormat("hh:mm");
+    public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
+
+    public Hours(RandomAccessFile f, String s) {
+        file = f;
+        status = s;
     }
 
     public void addFirstHours(String d, String a, String tI, String tO) {
-        int lineNum=1; 
+        int lineNum = 1;
         date = d;
         activity = status;
         timeIn = tI;
         timeOut = tO;
-        hoursEarned=getDuration(timeIn, timeOut);
-        verify=0; 
-        String line="";
-        String [] splitLine=null; 
+        hoursEarned = getDuration(timeIn, timeOut);
+        verify = 0;
+        String line = "";
+        String[] splitLine = null;
         try {
             file.seek(0);
             line = file.readLine();
@@ -63,50 +63,51 @@ public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
             //file.seek(44);
             file.seek(2);
             System.out.println();
-            file.writeBytes(totalHours+",0,0,001");
+            file.writeBytes(totalHours + ",0,0,001");
             file.seek(13);
             System.out.println();
-            file.writeBytes("\r\n00"+lineNum+","+date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned+","+verify);
+            file.writeBytes("\r\n00" + lineNum + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned + "," + verify);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
     }
+
     public void addHours(String d, String a, String tI, String tO) {
-        int lineNum=1; 
+        int lineNum = 1;
         date = d;
         activity = status;
         timeIn = tI;
         timeOut = tO;
-        hoursEarned=getDuration(timeIn, timeOut);
-        verify=0; 
-        String line="";
-        String [] splitLine=null; 
+        hoursEarned = getDuration(timeIn, timeOut);
+        verify = 0;
+        String line = "";
+        String[] splitLine = null;
         try {
             file.seek(0);
-            line=file.readLine();
+            line = file.readLine();
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an Error. ");
         }
-        splitLine=line.split(","); 
+        splitLine = line.split(",");
         totalHours = Double.parseDouble(splitLine[1]);
-        logHours=Double.parseDouble(splitLine[2]);
-        unlogHours=Double.parseDouble(splitLine[3]);
+        logHours = Double.parseDouble(splitLine[2]);
+        unlogHours = Double.parseDouble(splitLine[3]);
         totalHours += hoursEarned;
         //saving account intfo to database 
         try {
             //file.seek(44);
             file.seek(2);
             System.out.println();
-            file.writeBytes(totalHours+",0,0,"+lineNum);
-            file.seek(13+(lineNum*36));
+            file.writeBytes(totalHours + ",0,0," + lineNum);
+            file.seek(13 + (lineNum * 36));
             //file.seek(49+(lineNum*36));
             System.out.println();
-            if (lineNum<10){
-                file.writeBytes("\r\n00"+lineNum+","+date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned+","+verify);
-            } else if (lineNum<100&&lineNum>9){
-                file.writeBytes("\r\n0"+lineNum+","+date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned+","+verify);
+            if (lineNum < 10) {
+                file.writeBytes("\r\n00" + lineNum + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned + "," + verify);
+            } else if (lineNum < 100 && lineNum > 9) {
+                file.writeBytes("\r\n0" + lineNum + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned + "," + verify);
             } else {
-                file.writeBytes("\r\n"+lineNum+","+date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned+","+verify);
+                file.writeBytes("\r\n" + lineNum + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned + "," + verify);
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
@@ -194,6 +195,7 @@ public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
 
     /**
      * Removes the space padding of the input at the front
+     *
      * @param input
      * @return
      */
@@ -250,7 +252,7 @@ public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
                 String[] storedTimesIn = s.nextLine().split(",");
                 if (storedTimesIn[0].equals(studentNumber)) {
                     //store the stuff in the actual file
-                    //addHours(storedTimesIn[1], storedTimesIn[3], sdfClock.format(timeOut), 8);
+                    addHours(storedTimesIn[1], storedTimesIn[3], storedTimesIn[2], sdfClock.format(timeOut));
                 }
             }
             //catches errors and displays error box 
