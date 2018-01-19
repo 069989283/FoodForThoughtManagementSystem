@@ -26,7 +26,8 @@ public class Members {
         user=u; 
         newMember("P");
         Hours a = new Hours (file, status);
-        a.addFirstHours("13/01/2018", "R", "1:00", "2:00");
+        a.addFirstHours("13/01/2018", "R", "01:00", "02:00");
+        a.addHours("13/01/2018", "R", "01:00", "02:00");
     }
     public void newMember (String s){
         status=s; 

@@ -71,7 +71,7 @@ public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
         }
     }
     public void addHours(String d, String a, String tI, String tO) {
-        int lineNum=1; 
+        int lineNum; 
         date = d;
         activity = status;
         timeIn = tI;
@@ -90,14 +90,15 @@ public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
         totalHours = Double.parseDouble(splitLine[1]);
         logHours=Double.parseDouble(splitLine[2]);
         unlogHours=Double.parseDouble(splitLine[3]);
+        lineNum=Integer.parseInt(splitLine[4])+1; 
         totalHours += hoursEarned;
         //saving account intfo to database 
         try {
             //file.seek(44);
             file.seek(2);
             System.out.println();
-            file.writeBytes(totalHours+",0,0,"+lineNum);
-            file.seek(13+(lineNum*36));
+            file.writeBytes(totalHours+",0,0,00"+lineNum);
+            file.seek(13+(lineNum-1)*36);
             //file.seek(49+(lineNum*36));
             System.out.println();
             if (lineNum<10){
@@ -142,36 +143,6 @@ public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
             //catches errors and displays error box 
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, "You really messed up!");
-        }
-    }
-
-    private void getTop() {
-        String line = "";
-        String[] splitLine = null;
-        //boolean justStatus=true; 
-        try {
-            //scans file 
-            Scanner s = new Scanner(file);
-            line = s.nextLine();
-            //loops through file 
-            while (s.hasNextLine()) {
-                //justStatus=false; 
-                //sees if inputed username equals a username in the database 
-                line = s.nextLine();
-                splitLine = line.split(",");
-            }
-            //catches errors and displays error box 
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "You really messed up!");
-        }
-        if (splitLine.equals(null)) {
-            totalHours = 0;
-            logHours = 0;
-            unlogHours = 0;
-        } else {
-            totalHours = Double.parseDouble(splitLine[0]);
-            logHours = Double.parseDouble(splitLine[1]);
-            unlogHours = Double.parseDouble(splitLine[2]);
         }
     }
 
