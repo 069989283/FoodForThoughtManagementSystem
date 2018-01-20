@@ -161,6 +161,7 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
 //      2. Writing
         Date d = new Date();
         Date d2;
+        //first case: is the text of sign in the same and regular is selected?
         if (timeInOut.getText().equalsIgnoreCase("Sign In") && activitySelection.getSelectedIndex() == 0) {
             d = new Date();
             //time in of the user equals this
@@ -175,6 +176,7 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
             //calculate
             double hours = ((double) d2.getTime() - (double) d.getTime()) / 3600000; //code to get hours
             //store d2 and hours of the user
+         //is it someting special?
         } else if (activitySelection.getSelectedIndex() != 0) {
             String dayOf = dateField.getText();
             String minIn = timeInField.getText();
@@ -185,7 +187,6 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
                 d = sdf.parse(dayOf + "-" + minIn);
                 d2 = sdf.parse(dayOf + "-" + minOut); //test date
 
-                double hours = ((double) d2.getTime() - (double) d.getTime()) / 3600000; //code to get hours
                 System.out.println(hours);
                 if (activitySelection.getSelectedIndex() == 1) {
                     //TK add as buying

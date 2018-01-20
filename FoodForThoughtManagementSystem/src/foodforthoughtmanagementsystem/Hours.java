@@ -237,9 +237,9 @@ public class Hours {
         try {
             pw = new PrintWriter(new FileWriter(tempStore, true));
             //saving temp info into file
-            pw.println(studentNumber + "," + sdfDay.format(timeIn) + "," + activity + "," + sdfClock.format(timeIn));
+            pw.println(studentNumber + "," + pad(sdfDay.format(timeIn), 5) + "," + activity + "," + pad(sdfClock.format(timeIn), 5));
             pw.close();
-        } catch (IOException ex) {
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Tried to store a thing that couldn't be stored");
         }
     }
