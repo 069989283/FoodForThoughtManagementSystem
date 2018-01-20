@@ -5,8 +5,12 @@
  */
 package foodforthoughtmanagementsystem;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -170,12 +174,14 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
             timeInOut.setText("Sign Out");
             //Object[] options = {"Login"};
             //int n = JOptionPane.showOptionDialog(this, "You are signed in at " + d.toString(), "Sign In", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0],);
+            
+            Member current = new Member(loginNumber);
             JOptionPane.showMessageDialog(this, "You are signed in at " + d.toString());
 
         } else if (timeInOut.getText().equalsIgnoreCase("Sign Out")) {
             //time out of the user equals this
             d2 = new Date();
-            Members current = new Members(Panel01_LoginScreen.loginNumber);
+            Member current = new Member(Panel01_LoginScreen.loginNumber);
 
             //retrieve TimeIn of the User
             //calculate
@@ -185,24 +191,21 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
             String timeIn = timeInField.getText();
             String timeOut = timeOutField.getText();
             //TK error catching
-            //get date from that 
-            Members current = new Members(Panel01_LoginScreen.loginNumber);
-            if (activitySelection.getSelectedIndex() == 1) {
-                current.addHours(dayOf, 'P', timeIn, timeOut);
-            } else {
-                current.addHours(dayOf, 'L', timeIn, timeOut);
+            try {
+                Hours.sdfDay.parse(dayOf);
+                Hours.sdfClock.parse(timeIn);
+                Hours.sdfClock.parse(timeIn);
+                //get date from that 
+                Member current = new Member(Panel01_LoginScreen.loginNumber);
+                if (activitySelection.getSelectedIndex() == 1) {
+                    current.addHours(dayOf, "P", timeIn, timeOut, 0);
+                } else {
+                    current.addHours(dayOf, "L", timeIn, timeOut, 0);
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(Panel02_DefaultLeader.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "You didn't use the right format", "Parsing Error", JOptionPane.ERROR_MESSAGE);
             }
-//            try {
-//                d = sdf.parse(dayOf + "-" + minIn);
-//                d2 = sdf.parse(dayOf + "-" + minOut); //test date
-//
-//                double hours = ((double) d2.getTime() - (double) d.getTime()) / 3600000; //code to get hours
-//                System.out.println(hours);
-//                
-//                
-//            } catch (Exception e) {
-//                System.out.println(e.getMessage());
-//            }
 
         }
 
