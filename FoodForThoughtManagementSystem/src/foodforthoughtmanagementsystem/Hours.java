@@ -26,60 +26,35 @@ public class Hours {
 
     RandomAccessFile file;
     double totalHours, logHours, unlogHours, hoursEarned;
-    String date, activity, timeIn, timeOut, status;
+    String date, activity, timeIn, timeOut, status, firstName, lastName;
     int verify;
 
     public static SimpleDateFormat sdfClock = new SimpleDateFormat("hh:mm");
     public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
 
-    public Hours(RandomAccessFile f, String s) {
+    public Hours(RandomAccessFile f){
         file = f;
-        status = s;
-    }
-
-    public void addFirstHours(String d, String a, String tI, String tO) {
-        int lineNum = 1;
-        date = d;
-        activity = status;
-        timeIn = tI;
-        timeOut = tO;
-        hoursEarned = getDuration(timeIn, timeOut);
-        verify = 0;
-        String line = "";
-        String[] splitLine = null;
+    } 
+    public void top (String s, String fName, String lName){
+        status=s; 
+        firstName=pad(fName, 20); 
+        lastName=pad(lName, 20);
         try {
             file.seek(0);
-            line = file.readLine();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "There was an Error. ");
-        }
-        splitLine = line.split(",");
-        totalHours = Double.parseDouble(splitLine[1]);
-        logHours = Double.parseDouble(splitLine[2]);
-        unlogHours = Double.parseDouble(splitLine[3]);
-        totalHours += hoursEarned;
-        //saving account intfo to database 
-        try {
-            //file.seek(44);
-            file.seek(2);
             System.out.println();
-            file.writeBytes(totalHours + ",0,0,001");
-            file.seek(13);
-            System.out.println();
-            file.writeBytes("\r\n00" + lineNum + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned + "," + verify);
+            file.writeBytes("  0,"+firstName+","+lastName+","+status+",  0.0");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
     }
 
-    public void addHours(String d, String a, String tI, String tO) {
-        int lineNum; 
+    public void addHour(String d, String a, String tI, String tO, int v) {
         date = d;
-        activity = status;
+        activity = a;
         timeIn = tI;
         timeOut = tO;
         hoursEarned = getDuration(timeIn, timeOut);
-        verify = 0;
+        verify = v;
         String line = "";
         String[] splitLine = null;
         try {
@@ -89,27 +64,17 @@ public class Hours {
             JOptionPane.showMessageDialog(null, "There was an Error. ");
         }
         splitLine = line.split(",");
-        totalHours = Double.parseDouble(splitLine[1]);
-        logHours=Double.parseDouble(splitLine[2]);
-        unlogHours=Double.parseDouble(splitLine[3]);
-        lineNum=Integer.parseInt(splitLine[4])+1; 
-        totalHours += hoursEarned;
-        //saving account intfo to database 
+        int lineNum = Integer.parseInt(unPad(splitLine[0])); 
+        lineNum++; 
+        totalHours = Double.parseDouble(unPad(splitLine[4]));
+        totalHours += hoursEarned; 
         try {
-            //file.seek(44);
-            file.seek(2);
-            System.out.println();
-            file.writeBytes(totalHours+",0,0,00"+lineNum);
-            file.seek(13+(lineNum-1)*36);
-            //file.seek(49+(lineNum*36));
-            System.out.println();
-            if (lineNum < 10) {
-                file.writeBytes("\r\n00" + lineNum + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned + "," + verify);
-            } else if (lineNum < 100 && lineNum > 9) {
-                file.writeBytes("\r\n0" + lineNum + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned + "," + verify);
-            } else {
-                file.writeBytes("\r\n" + lineNum + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + hoursEarned + "," + verify);
-            }
+            file.seek(0);
+            file.writeBytes(pad((""+lineNum), 3));
+            file.seek(48);
+            file.writeBytes(pad((""+totalHours), 5));
+            file.seek(53+lineNum*35);
+            file.writeBytes("\r\n" + pad((""+lineNum), 3) + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + pad((""+hoursEarned),5) + "," + verify);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
@@ -118,6 +83,19 @@ public class Hours {
     public void displayingHours() {
         String line = "";
         String[] splitLine = null;
+        try {
+            file.seek(0);
+            line = file.readLine();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "There was an Error. ");
+        }
+        splitLine = line.split(",");
+        int lineNum = Integer.parseInt(unPad(splitLine[0])); 
+        firstName = unPad(splitLine[1]); 
+        lastName = unPad(splitLine[2]);
+        status = splitLine[3]; 
+        totalHours = Double.parseDouble(unPad(splitLine[4]));
+        System.out.println(firstName+" "+lastName+"\n"+status+"\nTotal Hours: "+totalHours);
         System.out.println("Total Hours: " + totalHours + "\nLogged Hours: " + logHours + "\nUnlogged Hours: " + unlogHours + "\nDate\t\tActivity\tTime In\t\tTime Out\tHours");
         try {
             int tracker = 0;
@@ -126,7 +104,6 @@ public class Hours {
                 if (line.equals("")) {
                     break;
                 } else {
-                    //sees if inputed username equals a username in the database 
                     line = s.nextLine();
                     splitLine = line.split(",");
                     date = splitLine[3];
@@ -143,42 +120,7 @@ public class Hours {
             JOptionPane.showMessageDialog(null, "You really messed up!");
         }
     }
-
-    /**
-     * Pads the string input from the front
-     *
-     * @param input
-     * @param paddingLength
-     * @return
-     */
-    public static String pad(String input, int paddingLength) {
-        int remainingLength = paddingLength - input.length();
-        String tempPad = "";
-        for (int i = 0; i < remainingLength; i++) {
-            tempPad = tempPad + " ";
-        }
-        return tempPad + input;
-    }
-
-    /**
-     * Removes the space padding of the input at the front
-     *
-     * @param input
-     * @return
-     */
-    public static String unPad(String input) {
-        int tempUnPad = 0;
-        for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) == ' ') {
-                tempUnPad++;
-            } else {
-                break;
-            }
-        }
-        String unPadded = input.substring(tempUnPad, input.length());
-        return unPadded;
-    }
-
+    
     /**
      * Pads the string input from the front
      *
