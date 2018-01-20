@@ -73,7 +73,7 @@ public class Hours {
     }
 
     public void addHours(String d, String a, String tI, String tO) {
-        int lineNum = 1;
+        int lineNum; 
         date = d;
         activity = status;
         timeIn = tI;
@@ -90,16 +90,17 @@ public class Hours {
         }
         splitLine = line.split(",");
         totalHours = Double.parseDouble(splitLine[1]);
-        logHours = Double.parseDouble(splitLine[2]);
-        unlogHours = Double.parseDouble(splitLine[3]);
+        logHours=Double.parseDouble(splitLine[2]);
+        unlogHours=Double.parseDouble(splitLine[3]);
+        lineNum=Integer.parseInt(splitLine[4])+1; 
         totalHours += hoursEarned;
         //saving account intfo to database 
         try {
             //file.seek(44);
             file.seek(2);
             System.out.println();
-            file.writeBytes(totalHours + ",0,0," + lineNum);
-            file.seek(13 + (lineNum * 36));
+            file.writeBytes(totalHours+",0,0,00"+lineNum);
+            file.seek(13+(lineNum-1)*36);
             //file.seek(49+(lineNum*36));
             System.out.println();
             if (lineNum < 10) {
@@ -117,13 +118,9 @@ public class Hours {
     public void displayingHours() {
         String line = "";
         String[] splitLine = null;
-        //scans file 
-        Scanner s = null;
-        getTop();
         System.out.println("Total Hours: " + totalHours + "\nLogged Hours: " + logHours + "\nUnlogged Hours: " + unlogHours + "\nDate\t\tActivity\tTime In\t\tTime Out\tHours");
         try {
             int tracker = 0;
-            s = new Scanner(file);
             line = s.nextLine();
             while (s.hasNextLine()) {
                 if (line.equals("")) {
@@ -147,34 +144,39 @@ public class Hours {
         }
     }
 
-    private void getTop() {
-        String line = "";
-        String[] splitLine = null;
-        //boolean justStatus=true; 
-        try {
-            //scans file 
-            Scanner s = new Scanner(file);
-            line = s.nextLine();
-            //loops through file 
-            while (s.hasNextLine()) {
-                //justStatus=false; 
-                //sees if inputed username equals a username in the database 
-                line = s.nextLine();
-                splitLine = line.split(",");
+    /**
+     * Pads the string input from the front
+     *
+     * @param input
+     * @param paddingLength
+     * @return
+     */
+    public static String pad(String input, int paddingLength) {
+        int remainingLength = paddingLength - input.length();
+        String tempPad = "";
+        for (int i = 0; i < remainingLength; i++) {
+            tempPad = tempPad + " ";
+        }
+        return tempPad + input;
+    }
+
+    /**
+     * Removes the space padding of the input at the front
+     *
+     * @param input
+     * @return
+     */
+    public static String unPad(String input) {
+        int tempUnPad = 0;
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == ' ') {
+                tempUnPad++;
+            } else {
+                break;
             }
-            //catches errors and displays error box 
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "You really messed up!");
         }
-        if (splitLine.equals(null)) {
-            totalHours = 0;
-            logHours = 0;
-            unlogHours = 0;
-        } else {
-            totalHours = Double.parseDouble(splitLine[0]);
-            logHours = Double.parseDouble(splitLine[1]);
-            unlogHours = Double.parseDouble(splitLine[2]);
-        }
+        String unPadded = input.substring(tempUnPad, input.length());
+        return unPadded;
     }
 
     /**
