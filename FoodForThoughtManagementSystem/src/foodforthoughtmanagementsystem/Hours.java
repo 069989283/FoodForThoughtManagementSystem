@@ -48,7 +48,7 @@ public class Hours {
         }
     }
 
-    public void addHours(String d, String a, String tI, String tO, int v) {
+    public void addHour(String d, String a, String tI, String tO, int v) {
         date = d;
         activity = a;
         timeIn = tI;
@@ -74,7 +74,7 @@ public class Hours {
             file.seek(48);
             file.writeBytes(pad((""+totalHours), 5));
             file.seek(53+lineNum*35);
-            file.writeBytes("\r\n" + pad((""+lineNum), 3) + "," + date + "," + activity + "," + pad(timeIn, 5) + "," + pad(timeOut, 5) + "," + pad((""+hoursEarned),5) + "," + verify);
+            file.writeBytes("\r\n" + pad((""+lineNum), 3) + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + pad((""+hoursEarned),5) + "," + verify);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
@@ -83,6 +83,19 @@ public class Hours {
     public void displayingHours() {
         String line = "";
         String[] splitLine = null;
+        try {
+            file.seek(0);
+            line = file.readLine();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "There was an Error. ");
+        }
+        splitLine = line.split(",");
+        int lineNum = Integer.parseInt(unPad(splitLine[0])); 
+        firstName = unPad(splitLine[1]); 
+        lastName = unPad(splitLine[2]);
+        status = splitLine[3]; 
+        totalHours = Double.parseDouble(unPad(splitLine[4]));
+        System.out.println(firstName+" "+lastName+"\n"+status+"\nTotal Hours: "+totalHours);
         System.out.println("Total Hours: " + totalHours + "\nLogged Hours: " + logHours + "\nUnlogged Hours: " + unlogHours + "\nDate\t\tActivity\tTime In\t\tTime Out\tHours");
         try {
             int tracker = 0;
