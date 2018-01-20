@@ -118,12 +118,9 @@ public class Hours {
     public void displayingHours() {
         String line = "";
         String[] splitLine = null;
-        //scans file 
-        Scanner s = null;
         System.out.println("Total Hours: " + totalHours + "\nLogged Hours: " + logHours + "\nUnlogged Hours: " + unlogHours + "\nDate\t\tActivity\tTime In\t\tTime Out\tHours");
         try {
             int tracker = 0;
-            s = new Scanner(file);
             line = s.nextLine();
             while (s.hasNextLine()) {
                 if (line.equals("")) {
