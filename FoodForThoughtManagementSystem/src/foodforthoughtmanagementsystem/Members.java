@@ -21,26 +21,22 @@ import javax.swing.JOptionPane;
  * @author LLeNeve
  */
 public class Members {
-    String user, status; 
+    String user, status, firstName, lastName; 
     RandomAccessFile file; 
     public Members(String u) {
-        user=u; 
-        newMember("P");
-        Hours a = new Hours (file, status);
-        a.addFirstHours("13/01/2018", "R", "01:00", "02:00");
-        a.addHours("13/01/2018", "R", "01:00", "02:00");
-    }
-    public void newMember (String s){
-        status=s; 
+        user=u;
         try {
             file = new RandomAccessFile ((user+".txt"),"rw");
-            file.seek(0);
-            System.out.println();
-            //file.writeChars(status+"000");
-            file.writeBytes(status+",0.0,0,0,000");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
+        Hours a = new Hours (file);
+        //newMember(a);
+        a.addHours("13/01/2018", "R", "1:00", "2:00");
+        a.addHours("13/01/2018", "R", "13:00", "14:00");
+    }
+    public void newMember (Hours a){
+        a.top("P", "Allie", "LeNeve");
     }
     public void existingMember (){
         //Hours a = new Hours(file, status); 
