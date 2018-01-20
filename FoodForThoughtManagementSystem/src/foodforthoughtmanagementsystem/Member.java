@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
  */
 public class Member {
     String user, status, firstName, lastName; 
+    Hours b=null; 
     RandomAccessFile file; 
     public Member(String u) {
         user=u;
@@ -30,14 +31,14 @@ public class Member {
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
-        Hours a = new Hours (file);
+        b = new Hours (file);
         //newMember(a);
-        addHours(a, "01/20/2018", "R", "01:00", "02:00", 0); 
+        addHours("01/20/2018", "R", "01:00", "02:00", 0); 
     }
     public void newMember (Hours a){
         a.top("P", "Allie", "LeNeve");
     }
-    public void addHours (Hours b, String d, String a, String tI, String tO, int v){
+    public void addHours (String d, String a, String tI, String tO, int v){
         b.addHour(d, a, tI, tO, v);
     }
 //     public Participant(String firstName,String lastName, int studentNumber,double totalHours, char status) {
