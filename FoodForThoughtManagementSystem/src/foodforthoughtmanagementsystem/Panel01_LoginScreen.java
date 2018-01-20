@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -101,16 +102,21 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         String loginNumber=jTextField1.getText();
         for(int i=0; i<loginNumber.length(); i++){
-            if(loginNumber.charAt(i) >100){
-                break;
-            } 
-        }
-        File file= new File (loginNumber+".txt");
-        if(file.exists()){
-            //TK
-        }
-        else{
-            //Textbox
+            if(loginNumber.length() != 9){
+                JOptionPane.showMessageDialog(this, "Invalid username");
+            }
+            else if(loginNumber.charAt(i) <48 || loginNumber.charAt(i)>57){
+                JOptionPane.showMessageDialog(this, "Invalid username");
+            }
+            else{
+                File file= new File (loginNumber+".txt");
+                if(file.exists()){
+                    //TK
+                }
+                else{
+                    JOptionPane optionPane = new JOptionPane( "This is not a registered user, would you\n"+"like to add a new participant?", JOptionPane.ERROR_MESSAGE,JOptionPane.YES_NO_OPTION);
+                }
+            }
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
