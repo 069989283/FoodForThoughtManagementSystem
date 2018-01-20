@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class Panel01_LoginScreen extends javax.swing.JPanel {
     
-    public String loginNumber;
+    public static String loginNumber;
     /**
      * Creates new form LoginScreen1
      */
@@ -99,7 +99,7 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        String loginNumber=jTextField1.getText();
+        loginNumber=jTextField1.getText();
         for(int i=0; i<loginNumber.length(); i++){
             if(loginNumber.charAt(i) >100){
                 break;

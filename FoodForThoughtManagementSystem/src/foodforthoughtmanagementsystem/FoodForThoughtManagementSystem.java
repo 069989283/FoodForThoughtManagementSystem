@@ -7,7 +7,9 @@ package foodforthoughtmanagementsystem;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -21,7 +23,7 @@ public class FoodForThoughtManagementSystem {
     public static void main(String[] args) {
         Members a = new Members("069989283"); 
         //MoneyVerification b = new MoneyVerification ("069989283"); 
-      
+   
     }
 
 }

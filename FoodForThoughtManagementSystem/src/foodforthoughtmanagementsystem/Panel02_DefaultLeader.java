@@ -78,7 +78,7 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
             }
         });
 
-        activitySelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "R", "B", "W" }));
+        activitySelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "R", "P", "L" }));
         activitySelection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 activitySelectionActionPerformed(evt);
@@ -168,13 +168,14 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
             //TK1 save the time in
             //show the user
             timeInOut.setText("Sign Out");
-           //Object[] options = {"Login"};
+            //Object[] options = {"Login"};
             //int n = JOptionPane.showOptionDialog(this, "You are signed in at " + d.toString(), "Sign In", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0],);
             JOptionPane.showMessageDialog(this, "You are signed in at " + d.toString());
 
         } else if (timeInOut.getText().equalsIgnoreCase("Sign Out")) {
             //time out of the user equals this
             d2 = new Date();
+            Members current = new Members(Panel01_LoginScreen.loginNumber);
 
             //retrieve TimeIn of the User
             //calculate
@@ -183,16 +184,13 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
             String dayOf = dateField.getText();
             String timeIn = timeInField.getText();
             String timeOut = timeOutField.getText();
-
-            //get date from that       
+            //TK error catching
+            //get date from that 
+            Members current = new Members(Panel01_LoginScreen.loginNumber);
             if (activitySelection.getSelectedIndex() == 1) {
-                    //TK add as buying
-                //addHours(dayOf, 'P', timeIn, timeOut) :
-
+                current.addHours(dayOf, 'P', timeIn, timeOut);
             } else {
-                    //TK add as writing
-                //addHours(dayOf, 'L', timeIn, timeOut);
-
+                current.addHours(dayOf, 'L', timeIn, timeOut);
             }
 //            try {
 //                d = sdf.parse(dayOf + "-" + minIn);
@@ -225,8 +223,7 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
 
     private void activitySelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activitySelectionActionPerformed
         // TODO add your handling code here:
-        String temp = (String) activitySelection.getSelectedItem();
-        if (!temp.equals("R")) {
+        if (activitySelection.getSelectedIndex() != 0) {
             jLabel1.setVisible(rootPaneCheckingEnabled);
             jLabel2.setVisible(rootPaneCheckingEnabled);
             dateField.setVisible(rootPaneCheckingEnabled);
