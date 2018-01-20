@@ -48,13 +48,13 @@ public class Hours {
         }
     }
 
-    public void addHours(String d, String a, String tI, String tO) {
+    public void addHours(String d, String a, String tI, String tO, int v) {
         date = d;
         activity = a;
         timeIn = tI;
         timeOut = tO;
         hoursEarned = getDuration(timeIn, timeOut);
-        verify = 0;
+        verify = v;
         String line = "";
         String[] splitLine = null;
         try {
@@ -79,7 +79,7 @@ public class Hours {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
     }
-/*
+
     public void displayingHours() {
         String line = "";
         String[] splitLine = null;
@@ -91,7 +91,6 @@ public class Hours {
                 if (line.equals("")) {
                     break;
                 } else {
-                    //sees if inputed username equals a username in the database 
                     line = s.nextLine();
                     splitLine = line.split(",");
                     date = splitLine[3];
@@ -108,7 +107,7 @@ public class Hours {
             JOptionPane.showMessageDialog(null, "You really messed up!");
         }
     }
-    */
+    
     /**
      * Pads the string input from the front
      *

@@ -20,10 +20,10 @@ import javax.swing.JOptionPane;
  *
  * @author LLeNeve
  */
-public class Members {
+public class Member {
     String user, status, firstName, lastName; 
     RandomAccessFile file; 
-    public Members(String u) {
+    public Member(String u) {
         user=u;
         try {
             file = new RandomAccessFile ((user+".txt"),"rw");
@@ -32,8 +32,8 @@ public class Members {
         }
         Hours a = new Hours (file);
         //newMember(a);
-        a.addHours("13/01/2018", "R", "1:00", "2:00");
-        a.addHours("13/01/2018", "R", "13:00", "14:00");
+        a.addHours("13/01/2018", "R", "1:00", "2:00", 0);
+        a.addHours("13/01/2018", "R", "13:00", "14:00", 1);
     }
     public void newMember (Hours a){
         a.top("P", "Allie", "LeNeve");
