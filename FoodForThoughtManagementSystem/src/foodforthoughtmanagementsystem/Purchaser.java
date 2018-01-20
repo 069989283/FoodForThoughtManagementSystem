@@ -13,8 +13,9 @@ import java.io.File;
  */
 public class Purchaser extends Participant {
 
-    public Purchaser(File f, String s) {
-        super(f, s);
+    public Purchaser(String firstName, String lastName, int studentNumber, double totalHours, char status) {
+        super(firstName, lastName, studentNumber, totalHours, status);
     }
+
     
 }

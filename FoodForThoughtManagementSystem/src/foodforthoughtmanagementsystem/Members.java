@@ -46,12 +46,4 @@ public class Members {
         //a.addHours("13/01/2018", "1:00", "2:00", 1);
         //a.displayingHours();
     }
-    public boolean fileExists (){
-        File f = new File (user+".txt"); 
-        if (f.exists()==true){
-            return true; 
-        } else {
-            return false; 
-        }
-    }
 }

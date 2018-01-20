@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package foodforthoughtmanagementsystem.panels;
+package foodforthoughtmanagementsystem;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,12 +16,11 @@ import java.util.logging.Logger;
  */
 public class Panel01_LoginScreen extends javax.swing.JPanel {
     
-    public static String loginNumber;
+    public String loginNumber;
     /**
      * Creates new form LoginScreen1
      */
     public Panel01_LoginScreen() {
-        Panel01_LoginScreen.loginNumber = jTextField1.getText();
         initComponents();
     }
 
@@ -100,23 +99,18 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        String a=jTextField1.getText();
-        for(int i=0; i<jTextField1.getText().length(); i++){
-            if(jTextField1.getText().charAt(i) >100){
+        String loginNumber=jTextField1.getText();
+        for(int i=0; i<loginNumber.length(); i++){
+            if(loginNumber.charAt(i) >100){
                 break;
             } 
         }
-        File file= new File (jTextField1.getText()+".txt");
-        boolean exists; 
-        try {
-            exists = file.createNewFile();
-            if (exists){
-                System.out.println("no");
-            } else {
-                System.out.println("in");
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Panel01_LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+        File file= new File (loginNumber+".txt");
+        if(file.exists()){
+            //TK
+        }
+        else{
+            //Textbox
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
