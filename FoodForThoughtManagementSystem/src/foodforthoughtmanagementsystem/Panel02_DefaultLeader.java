@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package foodforthoughtmanagementsystem.panels;
+package foodforthoughtmanagementsystem;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -161,42 +161,52 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
 //      2. Writing
         Date d = new Date();
         Date d2;
-        //first case: is the text of sign in the same and regular is selected?
         if (timeInOut.getText().equalsIgnoreCase("Sign In") && activitySelection.getSelectedIndex() == 0) {
+          
             d = new Date();
             //time in of the user equals this
-            //save the time in
+            //TK1 save the time in
             //show the user
             timeInOut.setText("Sign Out");
+//            Object[] options = {"Login"};
+//            int n = JOptionPane.showOptionDialog(this, "You are signed in at " + d.toString(), "Sign In", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0],);
+             JOptionPane.showMessageDialog(this, "You are signed in at " + d.toString());
+             
+             
         } else if (timeInOut.getText().equalsIgnoreCase("Sign Out")) {
             //time out of the user equals this
             d2 = new Date();
 
             //retrieve TimeIn of the User
             //calculate
-            double hours = ((double) d2.getTime() - (double) d.getTime()) / 3600000; //code to get hours
-            //store d2 and hours of the user
-         //is it someting special?
+           //store d2 and hours of the user
         } else if (activitySelection.getSelectedIndex() != 0) {
             String dayOf = dateField.getText();
-            String minIn = timeInField.getText();
-            String minOut = timeOutField.getText();
+            String timeIn = timeInField.getText();
+            String timeOut = timeOutField.getText();
 
-            //get date from that            
-            try {
-                d = sdf.parse(dayOf + "-" + minIn);
-                d2 = sdf.parse(dayOf + "-" + minOut); //test date
-
-                System.out.println(hours);
-                if (activitySelection.getSelectedIndex() == 1) {
+            //get date from that       
+            
+            if (activitySelection.getSelectedIndex() == 1) {
                     //TK add as buying
+                //addHours(dayOf, 'P', timeIn, timeOut) :
+                
                 } else {
                     //TK add as writing
-                }
+                //addHours(dayOf, 'L', timeIn, timeOut);
                 
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+                }
+//            try {
+//                d = sdf.parse(dayOf + "-" + minIn);
+//                d2 = sdf.parse(dayOf + "-" + minOut); //test date
+//
+//                double hours = ((double) d2.getTime() - (double) d.getTime()) / 3600000; //code to get hours
+//                System.out.println(hours);
+//                
+//                
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//            }
 
         }
 

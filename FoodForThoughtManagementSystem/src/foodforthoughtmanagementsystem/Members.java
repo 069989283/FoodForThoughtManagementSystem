@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -46,12 +47,22 @@ public class Members {
         //a.addHours("13/01/2018", "1:00", "2:00", 1);
         //a.displayingHours();
     }
-    public boolean fileExists (){
-        File f = new File (user+".txt"); 
-        if (f.exists()==true){
-            return true; 
-        } else {
-            return false; 
+     public Participant(String firstName,String lastName, int studentNumber,double totalHours, char status) {
+       String fn= firstName;
+       String ln= lastName;
+       int sn= studentNumber;
+       double th= totalHours;
+       char s= status;
+       
+    }    
+    public void updateHours(double moreHours){
+        String login= Panel01_LoginScreen.loginNumber;
+        File user= new File(login);
+        try {
+            Scanner s= new Scanner(user);
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Participant.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
