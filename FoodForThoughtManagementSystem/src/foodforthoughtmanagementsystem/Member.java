@@ -32,7 +32,7 @@ public class Member {
         }
         Hours a = new Hours (file);
         //newMember(a);
-        
+        addHours(a, "01/20/2018", "R", "01:00", "02:00", 0); 
     }
     public void newMember (Hours a){
         a.top("P", "Allie", "LeNeve");
