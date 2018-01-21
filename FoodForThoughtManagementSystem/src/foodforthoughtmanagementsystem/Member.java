@@ -31,23 +31,46 @@ public class Member {
     RandomAccessFile file;
 
     public Member(String u) {
+        //set user 
         user = u;
+        //create or call file 
         try {
             file = new RandomAccessFile((getUser() + ".txt"), "rw");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
+        //create hours class 
         b = new Hours(file);
-        //newMember(a);
+        //newMember();
         addHours("01/20/2018", "R", "01:00", "02:00", 0);
+        verify(1); 
     }
 
-    public void newMember(Hours a) {
-        a.top("P", "Allie", "LeNeve");
+    /**
+     * This method helps to create a file for the new members. 
+     */
+    public void newMember() {
+        //caliing the get top 
+        b.top("P", "Allie", "LeNeve");
     }
+    
+    /**
+     * This method  adds a new hour to the user's file. 
+     * @param d     Date
+     * @param a     Activity 
+     * @param tI    time in 
+     * @param tO    time out 
+     * @param v     verification 
+     */
     public void addHours (String d, String a, String tI, String tO, int v){
+        //call add hours
         //b.addHour(d, a, tI, tO, v);
+        //call display hours 
         b.displayingHours();
+    }
+    
+    public void verify (int lineNumber){
+        b.verify(lineNumber);
     }
 
     /**
