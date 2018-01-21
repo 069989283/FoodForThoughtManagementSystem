@@ -32,14 +32,15 @@ public class Member {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
         b = new Hours (file);
-        //newMember(a);
-        addHours("01/20/2018", "R", "01:00", "02:00", 0); 
+        //newMember();
+        addHours("01/21/2018", "R", "01:00", "02:00", 0); 
     }
-    public void newMember (Hours a){
-        a.top("P", "Allie", "LeNeve");
+    public void newMember (){
+        b.top("P", "Allie", "LeNeve");
     }
     public void addHours (String d, String a, String tI, String tO, int v){
-        b.addHour(d, a, tI, tO, v);
+        //b.addHour(d, a, tI, tO, v);
+        b.displayingHours();
     }
 //     public Participant(String firstName,String lastName, int studentNumber,double totalHours, char status) {
 //       String fn= firstName;

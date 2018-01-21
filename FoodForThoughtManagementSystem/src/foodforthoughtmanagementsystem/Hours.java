@@ -73,8 +73,8 @@ public class Hours {
             file.writeBytes(pad((""+lineNum), 3));
             file.seek(48);
             file.writeBytes(pad((""+totalHours), 5));
-            file.seek(53+lineNum*35);
-            file.writeBytes("\r\n" + pad((""+lineNum), 3) + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + pad((""+hoursEarned),5) + "," + verify);
+            file.seek(53+lineNum*39);
+            file.writeBytes("\r\n" + pad((""+lineNum), 3) + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + pad((""+hoursEarned),5) + "," + verify+",");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
@@ -83,40 +83,43 @@ public class Hours {
     public void displayingHours() {
         String line = "";
         String[] splitLine = null;
+        int totalLineNum; 
+        int lineNum; 
         try {
             file.seek(0);
             line = file.readLine();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "There was an Error. ");
-        }
-        splitLine = line.split(",");
-        int lineNum = Integer.parseInt(unPad(splitLine[0])); 
-        firstName = unPad(splitLine[1]); 
-        lastName = unPad(splitLine[2]);
-        status = splitLine[3]; 
-        totalHours = Double.parseDouble(unPad(splitLine[4]));
-        System.out.println(firstName+" "+lastName+"\n"+status+"\nTotal Hours: "+totalHours);
-        System.out.println("Total Hours: " + totalHours + "\nLogged Hours: " + logHours + "\nUnlogged Hours: " + unlogHours + "\nDate\t\tActivity\tTime In\t\tTime Out\tHours");
-        try {
-            int tracker = 0;
-            line = s.nextLine();
-            while (s.hasNextLine()) {
-                if (line.equals("")) {
-                    break;
-                } else {
-                    line = s.nextLine();
-                    splitLine = line.split(",");
-                    date = splitLine[3];
-                    activity = splitLine[4];
-                    timeIn = splitLine[5];
-                    timeOut = splitLine[6];
-                    hoursEarned = Double.parseDouble(splitLine[7]);
-                    System.out.println(date + "\t" + activity + "\t" + timeIn + "\t\t" + timeOut + "\t\t" + hoursEarned);
-                }
-                tracker++;
+            splitLine = line.split(",");
+            totalLineNum = Integer.parseInt(unPad(splitLine[0])); 
+            firstName = unPad(splitLine[1]); 
+            lastName = unPad(splitLine[2]);
+            status = splitLine[3]; 
+            totalHours = Double.parseDouble(unPad(splitLine[4]));
+            if (status.equals("P")){
+                System.out.println(firstName+" "+lastName+"\nParticipant\nTotal Hours: "+totalHours);
             }
-            //catches errors and displays error box 
-        } catch (FileNotFoundException ex) {
+            System.out.print("\n\tDate\t\tActivity\tTime In\t\tTime Out\tHours Earned\tVerified");
+            for (int b=0; b<totalLineNum; b++){
+                line = file.readLine();
+                splitLine = line.split(",");
+                lineNum = Integer.parseInt(unPad(splitLine[0])); 
+                date = splitLine[1];
+                activity = splitLine[2];
+                timeIn = splitLine[3];
+                timeOut = splitLine[4];
+                hoursEarned = Double.parseDouble(unPad(splitLine[5]));
+                verify=Integer.parseInt(splitLine[6]);
+                System.out.print("\n"+lineNum+"\t"+date + "\t");
+                if (activity.equals("R")){
+                    System.out.print("Regular"); 
+                }
+                System.out.print("\t\t" + timeIn + "\t\t" + timeOut + "\t\t" + hoursEarned); 
+                if (verify==0){
+                    System.out.print("\t\tNo");
+                } else {
+                    System.out.print("\t\tYes");
+                }
+            }
+        } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "You really messed up!");
         }
     }
@@ -196,7 +199,7 @@ public class Hours {
                 String[] storedTimesIn = s.nextLine().split(",");
                 if (storedTimesIn[0].equals(studentNumber)) {
                     //store the stuff in the actual file
-                    addHours(storedTimesIn[1], storedTimesIn[3], storedTimesIn[2], sdfClock.format(timeOut));
+                    addHour(storedTimesIn[1], storedTimesIn[3], storedTimesIn[2], sdfClock.format(timeOut), 1);
                 }
             }
             //catches errors and displays error box 
