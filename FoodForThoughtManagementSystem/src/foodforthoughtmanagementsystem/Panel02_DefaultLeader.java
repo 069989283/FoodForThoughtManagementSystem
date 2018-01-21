@@ -5,8 +5,12 @@
  */
 package foodforthoughtmanagementsystem;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -78,7 +82,7 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
             }
         });
 
-        activitySelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "R", "B", "W" }));
+        activitySelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "R", "P", "L" }));
         activitySelection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 activitySelectionActionPerformed(evt);
@@ -162,51 +166,46 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
         Date d = new Date();
         Date d2;
         if (timeInOut.getText().equalsIgnoreCase("Sign In") && activitySelection.getSelectedIndex() == 0) {
-          
+
             d = new Date();
             //time in of the user equals this
             //TK1 save the time in
             //show the user
             timeInOut.setText("Sign Out");
-//            Object[] options = {"Login"};
-//            int n = JOptionPane.showOptionDialog(this, "You are signed in at " + d.toString(), "Sign In", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0],);
-             JOptionPane.showMessageDialog(this, "You are signed in at " + d.toString());
-             
-             
+            //Object[] options = {"Login"};
+            //int n = JOptionPane.showOptionDialog(this, "You are signed in at " + d.toString(), "Sign In", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0],);
+            
+            Member current = new Member(loginNumber);
+            JOptionPane.showMessageDialog(this, "You are signed in at " + d.toString());
+
         } else if (timeInOut.getText().equalsIgnoreCase("Sign Out")) {
             //time out of the user equals this
             d2 = new Date();
+            Member current = new Member(Panel01_LoginScreen.loginNumber);
 
             //retrieve TimeIn of the User
             //calculate
-           //store d2 and hours of the user
+            //store d2 and hours of the user
         } else if (activitySelection.getSelectedIndex() != 0) {
             String dayOf = dateField.getText();
             String timeIn = timeInField.getText();
             String timeOut = timeOutField.getText();
-
-            //get date from that       
-            
-            if (activitySelection.getSelectedIndex() == 1) {
-                    //TK add as buying
-                //addHours(dayOf, 'P', timeIn, timeOut) :
-                
+            //TK error catching
+            try {
+                Hours.sdfDay.parse(dayOf);
+                Hours.sdfClock.parse(timeIn);
+                Hours.sdfClock.parse(timeIn);
+                //get date from that 
+                Member current = new Member(Panel01_LoginScreen.loginNumber);
+                if (activitySelection.getSelectedIndex() == 1) {
+                    current.addHours(dayOf, "P", timeIn, timeOut, 0);
                 } else {
-                    //TK add as writing
-                //addHours(dayOf, 'L', timeIn, timeOut);
-                
+                    current.addHours(dayOf, "L", timeIn, timeOut, 0);
                 }
-//            try {
-//                d = sdf.parse(dayOf + "-" + minIn);
-//                d2 = sdf.parse(dayOf + "-" + minOut); //test date
-//
-//                double hours = ((double) d2.getTime() - (double) d.getTime()) / 3600000; //code to get hours
-//                System.out.println(hours);
-//                
-//                
-//            } catch (Exception e) {
-//                System.out.println(e.getMessage());
-//            }
+            } catch (ParseException ex) {
+                Logger.getLogger(Panel02_DefaultLeader.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "You didn't use the right format", "Parsing Error", JOptionPane.ERROR_MESSAGE);
+            }
 
         }
 
@@ -227,13 +226,12 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
 
     private void activitySelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activitySelectionActionPerformed
         // TODO add your handling code here:
-        String temp = (String)activitySelection.getSelectedItem();
-        if (!temp.equals("R")){
-        jLabel1.setVisible(rootPaneCheckingEnabled);
-        jLabel2.setVisible(rootPaneCheckingEnabled);
-        dateField.setVisible(rootPaneCheckingEnabled);
-        timeInField.setVisible(rootPaneCheckingEnabled);
-        timeOutField.setVisible(rootPaneCheckingEnabled);
+        if (activitySelection.getSelectedIndex() != 0) {
+            jLabel1.setVisible(rootPaneCheckingEnabled);
+            jLabel2.setVisible(rootPaneCheckingEnabled);
+            dateField.setVisible(rootPaneCheckingEnabled);
+            timeInField.setVisible(rootPaneCheckingEnabled);
+            timeOutField.setVisible(rootPaneCheckingEnabled);
         }
     }//GEN-LAST:event_activitySelectionActionPerformed
 

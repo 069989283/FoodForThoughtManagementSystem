@@ -173,38 +173,5 @@ public class Hours {
         return hours;
     }
 
-    /**
-     * @param studentNumber
-     * @param activity
-     * @param timeIn
-     */
-    public void storeTimeIn(String studentNumber, char activity, Date timeIn) {
-        File tempStore = new File("TemporaryStorage.txt");
-        PrintWriter pw = null;
-        try {
-            pw = new PrintWriter(new FileWriter(tempStore, true));
-            //saving temp info into file
-            pw.println(studentNumber + "," + sdfDay.format(timeIn) + "," + activity + "," + sdfClock.format(timeIn));
-            pw.close();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Tried to store a thing that couldn't be stored");
-        }
-    }
-
-    public void storeTimeOut(String studentNumber, Date timeOut) {
-        File tempStore = new File("TemporaryStorage.txt");
-        try {
-            Scanner s = new Scanner(tempStore);
-            while (s.hasNextLine()) {
-                String[] storedTimesIn = s.nextLine().split(",");
-                if (storedTimesIn[0].equals(studentNumber)) {
-                    //store the stuff in the actual file
-                    addHour(storedTimesIn[1], storedTimesIn[3], storedTimesIn[2], sdfClock.format(timeOut), 1);
-                }
-            }
-            //catches errors and displays error box 
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "You really messed up!");
-        }
-    }
+    
 }
