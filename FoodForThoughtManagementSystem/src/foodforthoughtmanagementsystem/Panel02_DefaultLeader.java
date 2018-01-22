@@ -20,7 +20,11 @@ import javax.swing.JOptionPane;
 public class Panel02_DefaultLeader extends javax.swing.JFrame {
 
     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy-hh:mm");
-
+//            jLabel1.setVisible(false);
+//            jLabel2.setVisible(false);
+//            dateField.setVisible(false);
+//            timeInField.setVisible(false);
+//            timeOutField.setVisible(false);
     /**
      * Creates new form Panel04_DefaultLeader
      */
@@ -94,6 +98,7 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
         jLabel2.setText("Time Out:");
 
         dateField.setText("MM/dd/yyyy");
+        dateField.setAutoscrolls(false);
         dateField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dateFieldActionPerformed(evt);
@@ -227,11 +232,11 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
     private void activitySelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activitySelectionActionPerformed
         // TODO add your handling code here:
         if (activitySelection.getSelectedIndex() != 0) {
-            jLabel1.setVisible(rootPaneCheckingEnabled);
-            jLabel2.setVisible(rootPaneCheckingEnabled);
-            dateField.setVisible(rootPaneCheckingEnabled);
-            timeInField.setVisible(rootPaneCheckingEnabled);
-            timeOutField.setVisible(rootPaneCheckingEnabled);
+            jLabel1.setVisible(true);
+            jLabel2.setVisible(true);
+            dateField.setVisible(true);
+            timeInField.setVisible(true);
+            timeOutField.setVisible(true);
         }
     }//GEN-LAST:event_activitySelectionActionPerformed
 
