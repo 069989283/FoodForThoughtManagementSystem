@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -43,33 +44,34 @@ public class Member {
         b = new Hours(file);
         //newMember();
         addHours("01/20/2018", "R", "01:00", "02:00", 0);
-        verify(1); 
+        verify(1);
     }
 
     /**
-     * This method helps to create a file for the new members. 
+     * This method helps to create a file for the new members.
      */
     public void newMember() {
         //caliing the get top 
         b.top("P", "Allie", "LeNeve");
     }
-    
+
     /**
-     * This method  adds a new hour to the user's file. 
-     * @param d     Date
-     * @param a     Activity 
-     * @param tI    time in 
-     * @param tO    time out 
-     * @param v     verification 
+     * This method adds a new hour to the user's file.
+     *
+     * @param d Date
+     * @param a Activity
+     * @param tI time in
+     * @param tO time out
+     * @param v verification
      */
-    public void addHours (String d, String a, String tI, String tO, int v){
+    public void addHours(String d, String a, String tI, String tO, int v) {
         //call add hours
         //b.addHour(d, a, tI, tO, v);
         //call display hours 
         b.displayingHours();
     }
-    
-    public void verify (int lineNumber){
+
+    public void verify(int lineNumber) {
         b.verify(lineNumber);
     }
 
@@ -90,23 +92,44 @@ public class Member {
             JOptionPane.showMessageDialog(null, "Tried to store a thing that couldn't be stored");
         }
     }
-
+/**
+ * This signs the user out who was signed in before.
+ * @param timeOut is the sign out time of the user
+ */
     public void storeTimeOut(Date timeOut) {
         File tempStore = new File("TemporaryStorage.txt");
+
         try {
             Scanner s = new Scanner(tempStore);
+            ArrayList<String> temporaryStorage = new ArrayList(); //takes in every line
+            String current;
             while (s.hasNextLine()) {
-                String[] storedTimesIn = s.nextLine().split(",");
+                current = s.nextLine(); //used to keep track of the line being read
+                String[] storedTimesIn = current.split(",");
                 if (storedTimesIn[0].equals(getUser())) {
-                    //TK erase the instance
                     // public void addHour(String d, String a, String tI, String tO, int v)
                     addHours(storedTimesIn[1], storedTimesIn[2], storedTimesIn[3], sdfClock.format(timeOut), 0);
+                } //erase the current line being used
+                else {
+                    temporaryStorage.add(current);
                 }
+            }
+            // reprints the unused items
+            try {
+                PrintWriter pw = null;
+                pw = new PrintWriter(new FileWriter(tempStore));
+                //put the information back into file
+                for (int i = 0; i < temporaryStorage.size(); i++) {
+                    pw.println(temporaryStorage.get(i));
+                }
+                pw.close();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Tried to store a thing that couldn't be stored");
             }
             //catches errors and displays error box 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Member.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "You really messed up!");
+            JOptionPane.showMessageDialog(null, "Were you signed in?");
         }
     }
 

@@ -174,18 +174,18 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
             timeInOut.setText("Sign Out");
             //Object[] options = {"Login"};
             //int n = JOptionPane.showOptionDialog(this, "You are signed in at " + d.toString(), "Sign In", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0],);
-            
-            Member current = new Member(loginNumber);
+
+            Member current = new Member(Panel01_LoginScreen.loginNumber);
+            current.storeTimeIn('R', d);
+
             JOptionPane.showMessageDialog(this, "You are signed in at " + d.toString());
 
         } else if (timeInOut.getText().equalsIgnoreCase("Sign Out")) {
             //time out of the user equals this
             d2 = new Date();
             Member current = new Member(Panel01_LoginScreen.loginNumber);
-
-            //retrieve TimeIn of the User
-            //calculate
-            //store d2 and hours of the user
+            current.storeTimeOut(d2);
+            //TK
         } else if (activitySelection.getSelectedIndex() != 0) {
             String dayOf = dateField.getText();
             String timeIn = timeInField.getText();
@@ -204,7 +204,7 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
                 }
             } catch (ParseException ex) {
                 Logger.getLogger(Panel02_DefaultLeader.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "You didn't use the right format", "Parsing Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "You didn't use the right format for date", "Parsing Error", JOptionPane.ERROR_MESSAGE);
             }
 
         }
