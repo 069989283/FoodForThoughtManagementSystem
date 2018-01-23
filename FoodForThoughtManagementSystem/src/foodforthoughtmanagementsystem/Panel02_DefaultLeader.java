@@ -15,17 +15,30 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author 073685257
+ * @author Sherry
  */
 public class Panel02_DefaultLeader extends javax.swing.JFrame {
 
-    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy-hh:mm");
+    Member current;
 
     /**
      * Creates new form Panel04_DefaultLeader
      */
     public Panel02_DefaultLeader() {
         initComponents();
+
+        //set everything invisible
+        jLabel1.setVisible(false);
+        jLabel2.setVisible(false);
+        dateField.setVisible(false);
+        timeInField.setVisible(false);
+        timeOutField.setVisible(false);
+
+        //check if they were in the system as signed in before.
+        current = new Member(Panel01_LoginScreen.loginNumber);
+        if (current.wasSignedIn() == true) {
+            timeInOut.setText("Sign Out");
+        }
     }
 
     /**
@@ -82,7 +95,7 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
             }
         });
 
-        activitySelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "R", "P", "L" }));
+        activitySelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Regular", "Purchasing", "Managment" }));
         activitySelection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 activitySelectionActionPerformed(evt);
@@ -94,6 +107,7 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
         jLabel2.setText("Time Out:");
 
         dateField.setText("MM/dd/yyyy");
+        dateField.setAutoscrolls(false);
         dateField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dateFieldActionPerformed(evt);
@@ -165,17 +179,11 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
 //      2. Writing
         Date d = new Date();
         Date d2;
+         current = new Member(Panel01_LoginScreen.loginNumber);
         if (timeInOut.getText().equalsIgnoreCase("Sign In") && activitySelection.getSelectedIndex() == 0) {
 
             d = new Date();
-            //time in of the user equals this
-            //TK1 save the time in
-            //show the user
             timeInOut.setText("Sign Out");
-            //Object[] options = {"Login"};
-            //int n = JOptionPane.showOptionDialog(this, "You are signed in at " + d.toString(), "Sign In", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0],);
-
-            Member current = new Member(Panel01_LoginScreen.loginNumber);
             current.storeTimeIn('R', d);
 
             JOptionPane.showMessageDialog(this, "You are signed in at " + d.toString());
@@ -183,23 +191,23 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
         } else if (timeInOut.getText().equalsIgnoreCase("Sign Out")) {
             //time out of the user equals this
             d2 = new Date();
-            Member current = new Member(Panel01_LoginScreen.loginNumber);
             current.storeTimeOut(d2);
-            //TK
         } else if (activitySelection.getSelectedIndex() != 0) {
             String dayOf = dateField.getText();
             String timeIn = timeInField.getText();
             String timeOut = timeOutField.getText();
-            //TK error catching
+            
             try {
+                //parse the hours of everything and see if they used the right format
                 Hours.sdfDay.parse(dayOf);
                 Hours.sdfClock.parse(timeIn);
                 Hours.sdfClock.parse(timeIn);
-                //get date from that 
-                Member current = new Member(Panel01_LoginScreen.loginNumber);
+               
+                //the purchasing option was selected
                 if (activitySelection.getSelectedIndex() == 1) {
                     current.addHours(dayOf, "P", timeIn, timeOut, 0);
-                } else {
+                } // the managment option was selected
+                else {
                     current.addHours(dayOf, "L", timeIn, timeOut, 0);
                 }
             } catch (ParseException ex) {
@@ -226,12 +234,13 @@ public class Panel02_DefaultLeader extends javax.swing.JFrame {
 
     private void activitySelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activitySelectionActionPerformed
         // TODO add your handling code here:
+        //the fields will be visible if they select something other than regular
         if (activitySelection.getSelectedIndex() != 0) {
-            jLabel1.setVisible(rootPaneCheckingEnabled);
-            jLabel2.setVisible(rootPaneCheckingEnabled);
-            dateField.setVisible(rootPaneCheckingEnabled);
-            timeInField.setVisible(rootPaneCheckingEnabled);
-            timeOutField.setVisible(rootPaneCheckingEnabled);
+            jLabel1.setVisible(true);
+            jLabel2.setVisible(true);
+            dateField.setVisible(true);
+            timeInField.setVisible(true);
+            timeOutField.setVisible(true);
         }
     }//GEN-LAST:event_activitySelectionActionPerformed
 
