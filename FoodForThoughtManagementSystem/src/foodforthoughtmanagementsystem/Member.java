@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
 public class Member {
 
     private String user;
-    String status, firstName, lastName;
+  private  String status, firstName, lastName;
     Hours b = null;
     RandomAccessFile file;
 
@@ -74,8 +74,13 @@ public class Member {
     public void verify(int lineNumber) {
         b.verify(lineNumber);
     }
-
+    
+    
+    
+//Sherry
     /**
+     * This stores the timeIn of a user.
+     *
      * @param studentNumber
      * @param activity
      * @param timeIn
@@ -92,10 +97,13 @@ public class Member {
             JOptionPane.showMessageDialog(null, "Tried to store a thing that couldn't be stored");
         }
     }
-/**
- * This signs the user out who was signed in before.
- * @param timeOut is the sign out time of the user
- */
+    
+//Sherry
+    /**
+     * This signs the user out who was signed in before for the regular hour type.
+     *
+     * @param timeOut is the sign out time of the user
+     */
     public void storeTimeOut(Date timeOut) {
         File tempStore = new File("TemporaryStorage.txt");
 
@@ -132,7 +140,37 @@ public class Member {
             JOptionPane.showMessageDialog(null, "Were you signed in?");
         }
     }
+    //Sherry
+/**
+ * Checks to see if the person was already signed in.
+ * @return 
+ */
+    public boolean wasSignedIn() {
+        boolean signedIn = false;
 
+        File tempStore = new File("TemporaryStorage.txt");
+
+        try {
+            Scanner s = new Scanner(tempStore);
+            String current;
+            while (s.hasNextLine()) {
+                current = s.nextLine(); //used to keep track of the line being read
+                String[] storedTimesIn = current.split(",");
+                if (storedTimesIn[0].equals(getUser())) {
+                signedIn=true;
+                break;
+                } 
+            }
+            //catches errors and displays error box 
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Member.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Were you signed in?");
+        }
+
+        return signedIn;
+    }
+
+    //Shirley
 //     public Participant(String firstName,String lastName, int studentNumber,double totalHours, char status) {
 //       String fn= firstName;
 //       String ln= lastName;
@@ -141,20 +179,75 @@ public class Member {
 //       char s= status;
 //       
 //    }    
-//    public void updateHours(double moreHours){
-//        String login= Panel01_LoginScreen.loginNumber;
-//        File user= new File(login);
-//        try {
-//            Scanner s= new Scanner(user);
-//            
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(Participant.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    //Shirley
+    /**
+     *
+     * @param moreHours
+     */
+    public void updateHours(double moreHours) {
+        String login = Panel01_LoginScreen.loginNumber;
+        File user = new File(login);
+        try {
+            Scanner s = new Scanner(user);
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Member.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * @return the user
      */
     public String getUser() {
         return user;
+    }
+
+    /**
+     * @param user the user to set
+     */
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

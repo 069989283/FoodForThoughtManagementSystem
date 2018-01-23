@@ -29,8 +29,8 @@ public class Hours {
     String date, activity, timeIn, timeOut, status, firstName, lastName;
     int verify;
 
-    public static SimpleDateFormat sdfClock = new SimpleDateFormat("hh:mm");
-    public static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
+    public final static SimpleDateFormat sdfClock = new SimpleDateFormat("hh:mm");
+    public final static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
 
     public Hours(RandomAccessFile f) {
         file = f;
@@ -253,6 +253,7 @@ public class Hours {
         }
     }
 
+    //Sherry
     /**
      * Pads the string input from the front
      *
@@ -269,7 +270,9 @@ public class Hours {
         return tempPad + input;
     }
 
+    //Sherry
     /**
+     * 
      * Removes the space padding of the input at the front
      *
      * @param input
@@ -288,8 +291,9 @@ public class Hours {
         return unPadded;
     }
 
+    //Sherry
     /**
-     * Gets the time difference in hours between two Dates.
+     * Gets the time difference in hours between two Dates. It will be returned as a double.
      *
      * @param timeIn
      * @param timeOut
