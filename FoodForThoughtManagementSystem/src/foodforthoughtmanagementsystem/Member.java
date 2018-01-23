@@ -70,7 +70,10 @@ public class Member {
         //call display hours 
         b.displayingHours();
     }
-
+    
+    public void displayingHours(){
+      b.displayingHours();
+    }
     public void verify(int lineNumber) {
         b.verify(lineNumber);
     }

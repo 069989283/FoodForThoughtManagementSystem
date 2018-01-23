@@ -5,6 +5,8 @@
  */
 package foodforthoughtmanagementsystem;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author 073685257
@@ -16,6 +18,19 @@ public class Panel03_HoursHistory extends javax.swing.JPanel {
      */
     public Panel03_HoursHistory() {
         initComponents();
+        
+        
+        //TK actually display the hours
+         Member current= new Member(Panel01_LoginScreen.loginNumber);
+        
+        ArrayList<String> temp = new ArrayList();
+        String hoursInfo = "";
+//        for (int i = 0, i < temp.size (); i++  ){
+//        hoursInfo = hoursInfo + temp.get(i);
+//        }
+
+        jTextPane1.setText(hoursInfo);
+
     }
 
     /**
@@ -36,17 +51,11 @@ public class Panel03_HoursHistory extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
