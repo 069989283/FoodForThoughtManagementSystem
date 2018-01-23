@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
@@ -34,6 +35,7 @@ public class MoneyVerification {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
         addEntry("01/20/2018", "Superstore", 50.00, 0); 
+        display(); 
     } 
     
     public void newMember (){
@@ -76,12 +78,13 @@ public class MoneyVerification {
             file.seek(4);
             file.writeBytes(pad((""+totalAmount), 7));
             file.seek(12+(lineNum-1)*35);
+            String l = file.readLine();
             file.writeBytes("\r\n" + pad((""+lineNum), 3) + "," + date + "," + pad(store,10) + "," + pad((""+amount),6) + "," + verify+",");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
     } 
-    public void displayingHours (){ 
+    public void display (){ 
         //getting the info needed to create the top 
         String line = "";
         String[] splitLine = null;
@@ -103,7 +106,7 @@ public class MoneyVerification {
                 store = unPad(splitLine[2]); 
                 amount = Double.parseDouble(unPad(splitLine[3]));
                 verify = Integer.parseInt(splitLine[4]);
-                System.out.print(lineNum + "\t" + date + "\t"+store+"\t$"+amount);
+                System.out.print("\n"+lineNum + "\t" + date + "\t"+store+"\t$"+amount);
                 if (verify == 0) {
                     System.out.print("\t\tNo");
                     unloggedAmount++;

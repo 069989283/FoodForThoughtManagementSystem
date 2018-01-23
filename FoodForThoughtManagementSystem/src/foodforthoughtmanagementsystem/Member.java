@@ -44,7 +44,7 @@ public class Member {
         b = new Hours(file);
         //newMember();
         addHours("01/20/2018", "R", "01:00", "02:00", 0);
-        verify(1);
+        //verify(1);
     }
 
     /**

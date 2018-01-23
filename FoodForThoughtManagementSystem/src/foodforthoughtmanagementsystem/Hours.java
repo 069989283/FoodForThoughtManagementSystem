@@ -13,6 +13,8 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.RandomAccessFile;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -108,12 +110,13 @@ public class Hours {
     /**
      * This method displays the hours for the user.
      */
-    public void displayingHours() {
+    public ArrayList<String> displayingHours() {
         //getting the info needed to create the top 
         String line = "";
         String[] splitLine = null;
         int totalLineNum;
         int lineNum;
+        ArrayList<String> fileInfo = new ArrayList<String>();
         try {
             file.seek(0);
             line = file.readLine();
@@ -125,16 +128,16 @@ public class Hours {
             totalHours = Double.parseDouble(unPad(splitLine[4]));
             //displaying the information from the top 
             if (status.equals("R")) {
-                System.out.println(firstName + " " + lastName + "\nRegular\nTotal Hours: " + totalHours);
+                fileInfo.add(firstName + " " + lastName + "\nRegular\nTotal Hours: " + totalHours);
             } else if (status.equals("P")) {
-                System.out.println(firstName + " " + lastName + "\nPurchaser\nTotal Hours: " + totalHours);
+                fileInfo.add(firstName + " " + lastName + "\nPurchaser\nTotal Hours: " + totalHours);
             } else if (status.equals("L")) {
-                System.out.println(firstName + " " + lastName + "\nLeader\nTotal Hours: " + totalHours);
+                fileInfo.add(firstName + " " + lastName + "\nLeader\nTotal Hours: " + totalHours);
             } else if (status.equals("T")) {
-                System.out.println(firstName + " " + lastName + "\nTeacher\nTotal Hours: " + totalHours);
+                fileInfo.add(firstName + " " + lastName + "\nTeacher\nTotal Hours: " + totalHours);
             }
             //getting the info for the actual hours and displaying it 
-            System.out.print("\n\tDate\t\tActivity\tTime In\t\tTime Out\tHours Earned\tVerified");
+            fileInfo.add("  Date        Activity    Time In     Time Out    Hours Earned    Verified");
             for (int b = 0; b < totalLineNum; b++) {
                 line = file.readLine();
                 splitLine = line.split(",");
@@ -145,29 +148,32 @@ public class Hours {
                 timeOut = splitLine[4];
                 hoursEarned = Double.parseDouble(unPad(splitLine[5]));
                 verify = Integer.parseInt(splitLine[6]);
-                System.out.print("\n" + lineNum + "\t" + date + "\t");
+                String info=""; 
+                info=lineNum + "    " + date + "    ";
                 if (activity.equals("R")) {
-                    System.out.print("Regular");
+                    info=info+"Regular";
                 } else if (activity.equals("P")) {
-                    System.out.print("Purchase");
+                    info=info+("Purchase");
                 } else if (activity.equals("L")) {
-                    System.out.print("Leading");
+                    info=info+("Leading");
                 }
-                System.out.print("\t\t" + timeIn + "\t\t" + timeOut + "\t\t" + hoursEarned);
+                info=info+("        " + timeIn + "        " + timeOut + "        " + hoursEarned);
                 //getting the amount of logged vs. unlogged hours 
                 if (verify == 0) {
-                    System.out.print("\t\tNo");
+                    info=info+("        No");
                     unlogHours++;
                 } else {
-                    System.out.print("\t\tYes");
+                    info=info+("        Yes");
                     logHours++;
                 }
+                fileInfo.add(info);
             }
             //displaying the amount of logged vs. unlogged hours 
             System.out.println("Unlogged Hours: " + unlogHours + "\nLogged Hours:" + logHours);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "You really messed up!");
         }
+        return fileInfo; 
     }
 
     /**
@@ -200,8 +206,8 @@ public class Hours {
                 verify = Integer.parseInt(splitLine[6]);
                 if (lineNumber == lineNumber) {
                     //displaying line 
-                    System.out.print("\n\tDate\t\tActivity\tTime In\t\tTime Out\tHours Earned");
-                    System.out.print("\n" + lineNum + "\t" + date + "\t");
+                    System.out.print("\n    Date        Activity    Time In        Time Out    Hours Earned");
+                    System.out.print("\n" + lineNum + "    " + date + "    ");
                     if (activity.equals("R")) {
                         System.out.print("Regular");
                     } else if (activity.equals("P")) {
@@ -209,7 +215,7 @@ public class Hours {
                     } else if (activity.equals("L")) {
                         System.out.print("Leading");
                     }
-                    System.out.print("\t\t" + timeIn + "\t\t" + timeOut + "\t\t" + hoursEarned);
+                    System.out.print("        " + timeIn + "        " + timeOut + "        " + hoursEarned);
                     //seeing if hours have already been verified 
                     if (verify == 0) {
                         //asking if user wants to verify hours 
@@ -307,6 +313,8 @@ public class Hours {
                 //get the difference between the dates
                 hours = valueTimeOut / valueTimeIn;
             }
+            DecimalFormat df = new DecimalFormat("###.#"); 
+            hours=Double.parseDouble(df.format(hours)); 
         } catch (Exception e) {
             System.out.println(e.getMessage() + "getDuration() messed up.");
         }
