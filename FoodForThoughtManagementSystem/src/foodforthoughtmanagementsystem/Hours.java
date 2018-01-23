@@ -164,7 +164,7 @@ public class Hours {
                 }
             }
             //displaying the amount of logged vs. unlogged hours 
-            System.out.println("Unlogged Hours: " + unlogHours + "\nLogged Hours" + logHours);
+            System.out.println("Unlogged Hours: " + unlogHours + "\nLogged Hours:" + logHours);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "You really messed up!");
         }

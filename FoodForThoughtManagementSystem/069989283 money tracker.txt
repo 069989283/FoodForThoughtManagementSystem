@@ -1,1 +1,4 @@
-Food Buyer
+  3,  150.0,
+  1,01/20/2018,Superstore,  50.0,0,
+  2,01/20/2018,Superstore,  50.0,0,
+  3,01/20/2018,Superstore,  50.0,0,

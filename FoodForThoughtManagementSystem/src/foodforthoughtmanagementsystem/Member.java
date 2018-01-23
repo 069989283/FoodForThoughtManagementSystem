@@ -66,7 +66,7 @@ public class Member {
      */
     public void addHours(String d, String a, String tI, String tO, int v) {
         //call add hours
-        //b.addHour(d, a, tI, tO, v);
+        b.addHour(d, a, tI, tO, v);
         //call display hours 
         b.displayingHours();
     }
