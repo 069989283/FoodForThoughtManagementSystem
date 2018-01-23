@@ -34,10 +34,12 @@ public class Hours {
     public final static SimpleDateFormat sdfClock = new SimpleDateFormat("hh:mm");
     public final static SimpleDateFormat sdfDay = new SimpleDateFormat("MM/dd/yyyy");
 
+    //Allie
     public Hours(RandomAccessFile f) {
         file = f;
     }
 
+    //Allie
     /**
      * This method is to record the user's the number of lines, first name, last
      * name, status, and total hours.
@@ -61,6 +63,7 @@ public class Hours {
         }
     }
 
+    //Allie
     /**
      * This method adds hours to the user's file.
      *
@@ -107,6 +110,7 @@ public class Hours {
         }
     }
 
+    //Allie
     /**
      * This method displays the hours for the user.
      */
@@ -116,6 +120,7 @@ public class Hours {
         String[] splitLine = null;
         int totalLineNum;
         int lineNum;
+        //creating an array list to store all the information that needs to be displayed 
         ArrayList<String> fileInfo = new ArrayList<String>();
         try {
             file.seek(0);
@@ -126,7 +131,7 @@ public class Hours {
             lastName = unPad(splitLine[2]);
             status = splitLine[3];
             totalHours = Double.parseDouble(unPad(splitLine[4]));
-            //displaying the information from the top 
+            //storing the information from the top into the array list 
             if (status.equals("R")) {
                 fileInfo.add(firstName + " " + lastName + "\nRegular\nTotal Hours: " + totalHours);
             } else if (status.equals("P")) {
@@ -136,7 +141,7 @@ public class Hours {
             } else if (status.equals("T")) {
                 fileInfo.add(firstName + " " + lastName + "\nTeacher\nTotal Hours: " + totalHours);
             }
-            //getting the info for the actual hours and displaying it 
+            //getting the info for the actual amount 
             fileInfo.add("  Date        Activity    Time In     Time Out    Hours Earned    Verified");
             for (int b = 0; b < totalLineNum; b++) {
                 line = file.readLine();
@@ -166,16 +171,19 @@ public class Hours {
                     info=info+("        Yes");
                     logHours++;
                 }
+                //store the amount info into the array list 
                 fileInfo.add(info);
             }
-            //displaying the amount of logged vs. unlogged hours 
-            System.out.println("Unlogged Hours: " + unlogHours + "\nLogged Hours:" + logHours);
+            //storing the amount of logged vs. unlogged hours into the array list 
+            fileInfo.add("Unlogged Hours: " + unlogHours); 
+            fileInfo.add("Logged Hours:" + logHours);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "You really messed up!");
         }
         return fileInfo; 
     }
 
+    //Allie
     /**
      * This method allows the user to verify hours
      *
@@ -317,6 +325,7 @@ public class Hours {
                 //get the difference between the dates
                 hours = valueTimeOut / valueTimeIn;
             }
+            //putting hours into proper format (with one decimal place)
             DecimalFormat df = new DecimalFormat("###.#"); 
             hours=Double.parseDouble(df.format(hours)); 
         } catch (Exception e) {

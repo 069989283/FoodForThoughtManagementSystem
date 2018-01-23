@@ -27,10 +27,11 @@ import javax.swing.JOptionPane;
 public class Member {
 
     private String user;
-  private  String status, firstName, lastName;
+    private  String status, firstName, lastName;
     Hours b = null;
     RandomAccessFile file;
 
+    //Allie
     public Member(String u) {
         //set user 
         user = u;
@@ -47,6 +48,7 @@ public class Member {
         //verify(1);
     }
 
+    //Allie
     /**
      * This method helps to create a file for the new members.
      */
@@ -55,6 +57,7 @@ public class Member {
         b.top("P", "Allie", "LeNeve");
     }
 
+    //Allie
     /**
      * This method adds a new hour to the user's file.
      *
