@@ -21,7 +21,8 @@ public class FoodForThoughtManagementSystem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Member a = new Member("069989283"); 
+        //Member a = new Member("069989283"); 
+        MoneyVerification b = new MoneyVerification ("069989283"); 
         //MoneyVerification b = new MoneyVerification ("069989283"); 
    
     }

@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 public class MoneyVerification {
     int verify; 
     String user, date, store, status; 
-    double amount, totalAmount; 
+    double amount, totalAmount, unloggedAmount, loggedAmount; 
     RandomAccessFile file;
     
     public MoneyVerification(String u){
@@ -33,6 +33,7 @@ public class MoneyVerification {
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
+        addEntry("01/20/2018", "Superstore", 50.00, 0); 
     } 
     
     public void newMember (){
@@ -74,35 +75,46 @@ public class MoneyVerification {
             file.writeBytes(pad((""+lineNum), 3));
             file.seek(4);
             file.writeBytes(pad((""+totalAmount), 7));
-            file.seek(12+(lineNum-1)*20);
+            file.seek(12+(lineNum-1)*35);
             file.writeBytes("\r\n" + pad((""+lineNum), 3) + "," + date + "," + pad(store,10) + "," + pad((""+amount),6) + "," + verify+",");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
     } 
     public void displayingHours (){ 
-        //scans file 
-        Scanner s=null;
-        System.out.println("\tDate\t\tStore\t\tVerified");
+        //getting the info needed to create the top 
+        String line = "";
+        String[] splitLine = null;
+        int totalNumLine;
+        int lineNum;
         try {
-            s = new Scanner(file);
-            line = s.nextLine();
-            while (s.hasNextLine()) {
-                //sees if inputed username equals a username in the database 
-                line = s.nextLine();
+            file.seek(0);
+            line = file.readLine();
+            splitLine = line.split(",");
+            totalNumLine = Integer.parseInt(unPad(splitLine[0]));
+            totalAmount = Double.parseDouble(unPad(splitLine[1]));
+            //getting the info for the actual hours and displaying it 
+            System.out.println("\tDate\t\tStore\tAmount Paid\tVerified");
+            for (int b = 0; b < totalNumLine; b++) {
+                line = file.readLine();
                 splitLine = line.split(",");
-                entry=(int)Double.parseDouble(splitLine[0]); 
-                date=splitLine[1]; 
-                store=splitLine[2];
-                verify=Boolean.parseBoolean(splitLine[3]);
-                if (verify==true){
-                    System.out.println(entry+".\t"+date+"\t"+store+"\tYes"); 
+                lineNum = Integer.parseInt(unPad(splitLine[0]));
+                date = splitLine[1];
+                store = unPad(splitLine[2]); 
+                amount = Double.parseDouble(unPad(splitLine[3]));
+                verify = Integer.parseInt(splitLine[4]);
+                System.out.print(lineNum + "\t" + date + "\t"+store+"\t$"+amount);
+                if (verify == 0) {
+                    System.out.print("\t\tNo");
+                    unloggedAmount++;
                 } else {
-                    System.out.println(entry+".\t"+date+"\t"+store+"\tNo"); 
+                    System.out.print("\t\tYes");
+                    loggedAmount++;
                 }
             }
-        //catches errors and displays error box 
-        } catch (FileNotFoundException ex) {
+            //displaying the amount of logged vs. unlogged hours 
+            System.out.println("Unlogged Amount: " + unloggedAmount + "\nLogged Amount:" + loggedAmount);
+        } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "You really messed up!");
         }
     }
