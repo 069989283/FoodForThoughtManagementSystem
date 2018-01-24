@@ -44,7 +44,7 @@ public class Member {
         }
         //create hours class 
         b = new Hours(file);
-        //newMember();
+        //newMember("P", "Allie", "LeNeve");
         addHours("01/20/2018", "R", "01:00", "02:00", 0);
         //verify(1);
     }
@@ -53,9 +53,9 @@ public class Member {
     /**
      * This method helps to create a file for the new members.
      */
-    public void newMember() {
+    public void newMember(String s, String fName, String lName) {
         //caliing the get top 
-        b.top("P", "Allie", "LeNeve");
+        b.top(s, fName, lName);
     }
 
     //Allie
