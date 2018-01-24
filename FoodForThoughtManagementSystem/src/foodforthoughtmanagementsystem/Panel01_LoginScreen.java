@@ -256,7 +256,16 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
         }
         File file= new File (loginNumber+".txt");
         if(file.exists()){
-            JOptionPane.showMessageDialog(this, "You got it!");
+            jTextField1.setVisible(false);
+            jButton1.setVisible(false);
+            jTextField2.setVisible(false);
+            jTextField3.setVisible(false);
+            jTextField4.setVisible(false);
+            jButton2.setVisible(false);
+            jComboBox1.setVisible(false);
+            jButton3.setVisible(true);
+            jButton4.setVisible(true);
+            jComboBox2.setVisible(true);
         }
         else{
             JOptionPane.showMessageDialog(this, "That username is not registered. Please try reentering it or create a new user if you are not registered.");
