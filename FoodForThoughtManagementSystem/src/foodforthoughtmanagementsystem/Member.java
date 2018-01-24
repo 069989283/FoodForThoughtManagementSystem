@@ -37,7 +37,8 @@ public class Member {
         user = u;
         //create or call file 
         try {
-            file = new RandomAccessFile((getUser() + ".txt"), "rw");
+            //file = new RandomAccessFile((getUser() + ".txt"), "rw");
+            file = new RandomAccessFile(("user.txt"), "rw");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
@@ -71,7 +72,7 @@ public class Member {
         //call add hours
         b.addHour(d, a, tI, tO, v);
         //call display hours 
-        b.displayingHours();
+        //b.displayingHours();
     }
     
     public void displayingHours(){

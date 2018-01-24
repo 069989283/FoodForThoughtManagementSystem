@@ -22,7 +22,7 @@ public class FoodForThoughtManagementSystem {
      */
     public static void main(String[] args) {
         Member a = new Member("069989283"); 
-        MoneyVerification b = new MoneyVerification ("069989283"); 
+        //MoneyVerification b = new MoneyVerification ("069989283"); 
         //MoneyVerification b = new MoneyVerification ("069989283"); 
    
     }
