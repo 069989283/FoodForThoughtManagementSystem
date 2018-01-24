@@ -41,10 +41,10 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
         jTextField7.setVisible(false);
         jComboBox2.setVisible(false);
         //check if they were in the system as signed in before.
-        current = new Member(Panel01_LoginScreen.loginNumber);
-        if (current.wasSignedIn() == true) {
-            jButton4.setText("Sign Out");
-        }
+//        current = new Member(Panel01_LoginScreen.loginNumber);
+//        if (current.wasSignedIn() == true) {
+//            jButton4.setText("Sign Out");
+//        }
     }
 
     /**
