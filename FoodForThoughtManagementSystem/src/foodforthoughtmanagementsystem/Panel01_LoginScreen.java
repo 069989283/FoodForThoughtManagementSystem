@@ -101,11 +101,11 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         String loginNumber=jTextField1.getText();
+        if(loginNumber.length() != 9){
+            JOptionPane.showMessageDialog(this, "Invalid username");
+        }
         for(int i=0; i<loginNumber.length(); i++){
-            if(loginNumber.length() != 9){
-                JOptionPane.showMessageDialog(this, "Invalid username");
-            }
-            else if(loginNumber.charAt(i) <48 || loginNumber.charAt(i)>57){
+            if(loginNumber.charAt(i) <48 || loginNumber.charAt(i)>57){
                 JOptionPane.showMessageDialog(this, "Invalid username");
             }
             else{
