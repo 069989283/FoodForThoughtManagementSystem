@@ -21,6 +21,7 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
     
     public static String loginNumber;
     Member current;
+    //something
     /**
      * Creates new form LoginScreen1
      */
