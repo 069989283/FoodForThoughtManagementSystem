@@ -57,7 +57,7 @@ public class Hours {
         try {
             file.seek(0);
             System.out.println();
-            file.writeBytes("  0," + firstName + "," + lastName + "," + status + ",  0.0");
+            file.writeBytes("  0," + firstName + "," + lastName + "," + status + ",  0.0,");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
@@ -99,11 +99,14 @@ public class Hours {
         totalHours += hoursEarned;
         //writing hours information to the user's file 
         try {
+            int e = 54 + (lineNum-1) * 39; 
+            file.seek(93);
+            String Line=file.readLine();
             file.seek(0);
             file.writeBytes(pad(("" + lineNum), 3));
             file.seek(48);
             file.writeBytes(pad(("" + totalHours), 5));
-            file.seek(53 + lineNum * 39);
+            file.seek(54 + (lineNum-1) * 37);
             file.writeBytes("\r\n" + pad(("" + lineNum), 3) + "," + date + "," + activity + "," + timeIn + "," + timeOut + "," + pad(("" + hoursEarned), 5) + "," + verify + ",");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
@@ -131,16 +134,18 @@ public class Hours {
             lastName = unPad(splitLine[2]);
             status = splitLine[3];
             totalHours = Double.parseDouble(unPad(splitLine[4]));
-            //storing the information from the top into the array list 
+            //storing the information from the top into the array list
+            fileInfo.add(firstName + " " + lastName);
             if (status.equals("R")) {
-                fileInfo.add(firstName + " " + lastName + "\nRegular\nTotal Hours: " + totalHours);
+                fileInfo.add("Regular");
             } else if (status.equals("P")) {
-                fileInfo.add(firstName + " " + lastName + "\nPurchaser\nTotal Hours: " + totalHours);
+                fileInfo.add("Purchaser");
             } else if (status.equals("L")) {
-                fileInfo.add(firstName + " " + lastName + "\nLeader\nTotal Hours: " + totalHours);
+                fileInfo.add("Leader");
             } else if (status.equals("T")) {
-                fileInfo.add(firstName + " " + lastName + "\nTeacher\nTotal Hours: " + totalHours);
+                fileInfo.add("Teacher");
             }
+            fileInfo.add("Total Hours: " + totalHours);
             //getting the info for the actual amount 
             fileInfo.add("  Date        Activity    Time In     Time Out    Hours Earned    Verified");
             for (int b = 0; b < totalLineNum; b++) {
