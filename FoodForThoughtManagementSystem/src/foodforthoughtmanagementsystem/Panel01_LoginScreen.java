@@ -5,29 +5,33 @@
  */
 package foodforthoughtmanagementsystem;
 
+import java.awt.Dimension;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author 073685257
  */
 public class Panel01_LoginScreen extends javax.swing.JPanel {
-    
+
     public static String loginNumber;
     Member current;
-    //something
+
     /**
      * Creates new form LoginScreen1
      */
     public Panel01_LoginScreen() {
         initComponents();
-        jPasswordField1.setVisible(false);
         jTextField2.setVisible(false);
         jTextField3.setVisible(false);
         jTextField4.setVisible(false);
@@ -41,11 +45,8 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
         jTextField6.setVisible(false);
         jTextField7.setVisible(false);
         jComboBox2.setVisible(false);
-        //check if they were in the system as signed in before.
-//        current = new Member(Panel01_LoginScreen.loginNumber);
-//        if (current.wasSignedIn() == true) {
-//            jButton4.setText("Sign Out");
-//        }
+        jTextPane1.setVisible(false);
+        jScrollPane1.setVisible(false);
     }
 
     /**
@@ -57,9 +58,10 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
@@ -73,8 +75,24 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
         jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jComboBox2 = new javax.swing.JComboBox<>();
+        jButton5 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
 
-        jButton1.setText("Sign in");
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        jButton1.setText("OK");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
@@ -90,13 +108,6 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jPasswordField1.setText("password");
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
             }
         });
 
@@ -121,6 +132,11 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Regular", "Purchaser", "Leader" }));
 
         jButton3.setText("View History");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         jButton4.setText("Sign In");
         jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -155,15 +171,32 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
         });
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Regular", "Purchasing", "Management" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Exit");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
+
+        jTextPane1.setEditable(false);
+        jScrollPane1.setViewportView(jTextPane1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(27, 27, 27)
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(49, 49, 49)
@@ -181,8 +214,6 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -199,18 +230,19 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
                                         .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(jTextField6)
-                                    .addComponent(jTextField5))))))
-                .addContainerGap(47, Short.MAX_VALUE))
+                                    .addComponent(jTextField5)))
+                            .addComponent(jScrollPane1))))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addComponent(jButton5)
+                        .addGap(31, 31, 31)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
@@ -238,7 +270,9 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -251,12 +285,17 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        loginNumber=jTextField1.getText();
-        if(loginNumber.length() != 9){
-            JOptionPane.showMessageDialog(this, "Invalid username");
+        if(jTextField2.isVisible()){
+            loginNumber = jTextField2.getText();
         }
-        File file= new File (loginNumber+".txt");
-        if(file.exists()){
+        else{
+            loginNumber = jTextField1.getText();
+        }
+        File file = new File(loginNumber + ".txt");
+        if (loginNumber.length() != 9 ) {
+            JOptionPane.showMessageDialog(this, "Invalid username, please check it and try again.");
+        }
+        else if (file.exists()) {
             jTextField1.setVisible(false);
             jButton1.setVisible(false);
             jTextField2.setVisible(false);
@@ -267,28 +306,36 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
             jButton3.setVisible(true);
             jButton4.setVisible(true);
             jComboBox2.setVisible(true);
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "That username is not registered. Please try reentering it or create a new user if you are not registered.");
+        } else {
+            JOptionPane.showMessageDialog(this, "That username is not registered. Please try re-entering it or create a new user if you are not registered.");
             jTextField2.setVisible(true);
             jTextField3.setVisible(true);
             jTextField4.setVisible(true);
             jButton2.setVisible(true);
             jComboBox1.setVisible(true);
-            
+
+        }
+//Sherry        
+//check if they were in the system as signed in before.
+        current = new Member(loginNumber);
+        if (current.wasSignedIn() == true) {
+            jButton4.setText("Sign Out");
         }
     }//GEN-LAST:event_jButton1MouseClicked
-
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        //register
+        if (jTextField2.getText().length() != 9 ) {
+            JOptionPane.showMessageDialog(this, "Invalid username, must be 9 characters.");
+        }
+        else{
+            Member registering = new Member(jTextField2.getText());
+            registering.newMember((String) jComboBox1.getSelectedItem(), jTextField3.getText(), jTextField4.getText());
+            jButton1MouseClicked(evt);
+        }
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
@@ -305,50 +352,128 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
 //      0. Regular
 //      1. Buying
 //      2. Writing
-//        Date d = new Date();
-//        Date d2;
-//         current = new Member(Panel01_LoginScreen.loginNumber);
-//        if (jButton4.getText().equalsIgnoreCase("Sign In") && jComboBox2.getSelectedIndex() == 0) {
-//
-//            d = new Date();
-//            jButton4.setText("Sign Out");
-//            current.storeTimeIn('R', d);
-//
-//            JOptionPane.showMessageDialog(this, "You are signed in at " + d.toString());
-//
-//        } else if (jButton4.getText().equalsIgnoreCase("Sign Out")) {
-//            //time out of the user equals this
-//            d2 = new Date();
-//            current.storeTimeOut(d2);
-//        } else if (jComboBox2.getSelectedIndex() != 0) {
-//            String dayOf = jTextField7.getText();
-//            String timeIn = jTextField6.getText();
-//            String timeOut = jTextField5.getText();
-//            
-//            try {
-//                //parse the hours of everything and see if they used the right format
-//                Hours.sdfDay.parse(dayOf);
-//                Hours.sdfClock.parse(timeIn);
-//                Hours.sdfClock.parse(timeIn);
-//               
-//                //the purchasing option was selected
-//                if (jComboBox2.getSelectedIndex() == 1) {
-//                    current.addHours(dayOf, "P", timeIn, timeOut, 0);
-//                } // the managment option was selected
-//                else {
-//                    current.addHours(dayOf, "L", timeIn, timeOut, 0);
-//                }
-//            } catch (ParseException ex) {
-//                Logger.getLogger(Panel02_DefaultLeader.class.getName()).log(Level.SEVERE, null, ex);
-//                JOptionPane.showMessageDialog(this, "You didn't use the right format for date", "Parsing Error", JOptionPane.ERROR_MESSAGE);
-//            }
-//
-//        }
+        Date d;
+        Date d2;
+        current = new Member(loginNumber);
+        
+        if (jButton4.getText().equalsIgnoreCase("Sign In") && jComboBox2.getSelectedIndex() == 0) {
+            //store the time in
+            d = new Date();
+            current.storeTimeIn('R', d);
+            //output
+            jButton4.setText("Sign Out");
+            JOptionPane.showMessageDialog(this, "You are signed in at " + d.toString());
+        } else if (jButton4.getText().equalsIgnoreCase("Sign Out")) {
+            //time out of the user equals this
+            d2 = new Date();
+            current.storeTimeOut(d2);
+            //output
+            jButton4.setText("Sign In");
+            JOptionPane.showMessageDialog(this, "You are signed out at " + d2.toString());
+        } else if (jComboBox2.getSelectedIndex() != 0) {
+            String dayOf = jTextField7.getText();
+            String timeIn = jTextField6.getText();
+            String timeOut = jTextField5.getText();
+            //code doesn't work
+            //error catching
+            try {
+                //parse the hours of everything and see if they used the right format
+                Hours.sdfDay.parse(dayOf);
+                Hours.sdfClock.parse(timeIn);
+                Hours.sdfClock.parse(timeIn);
+
+                //the purchasing option was selected
+                if (jComboBox2.getSelectedIndex() == 1) {
+                    current.addHours(dayOf, "P", timeIn, timeOut, 0);
+                    JOptionPane.showMessageDialog(this, "P Hours are in!");
+                } else {
+                    current.addHours(dayOf, "L", timeIn, timeOut, 0);
+                    JOptionPane.showMessageDialog(this, "L Hours are in!");
+                }
+                JOptionPane.showMessageDialog(this, "Special Hours are in!");
+            } catch (ParseException ex) {
+            //error message
+                JOptionPane.showMessageDialog(this, "You didn't use the right format for date", "Parsing Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
     }//GEN-LAST:event_jButton4MouseClicked
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField5ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        if (jComboBox2.getSelectedIndex() != 0) {
+            jLabel1.setVisible(true);
+            jLabel2.setVisible(true);
+            jTextField5.setVisible(true);
+            jTextField6.setVisible(true);
+            jTextField7.setVisible(true);
+        }
+        else if (jComboBox2.getSelectedIndex() == 0) {
+            jLabel1.setVisible(false);
+            jLabel2.setVisible(false);
+            jTextField5.setVisible(false);
+            jTextField6.setVisible(false);
+            jTextField7.setVisible(false);
+        }
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        if(jButton3.isVisible()){
+            jTextField1.setVisible(true);
+            jTextField1.setText("Username");
+            jButton1.setVisible(true);
+            jButton3.setVisible(false);
+            jButton4.setVisible(false);
+            jLabel1.setVisible(false);
+            jLabel2.setVisible(false);
+            jTextField5.setVisible(false);
+            jTextField6.setVisible(false);
+            jTextField7.setVisible(false);
+            jComboBox2.setVisible(false);
+        }
+        else if(jTextPane1.isVisible()){
+            jTextPane1.setVisible(false);
+            jButton3.setVisible(true);
+            jButton4.setVisible(true);
+            jComboBox2.setVisible(true);
+            jScrollPane1.setVisible(false);
+        }
+        else{
+            System.exit(0);
+        }
+    }//GEN-LAST:event_jButton5MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        jScrollPane1.setMinimumSize(new Dimension(450,200));
+        jButton3.setVisible(false);
+        jButton4.setVisible(false);
+        jLabel1.setVisible(false);
+        jLabel2.setVisible(false);
+        jTextField5.setVisible(false);
+        jTextField6.setVisible(false);
+        jTextField7.setVisible(false);
+        jComboBox2.setVisible(false);
+        jTextPane1.setVisible(true);
+        jScrollPane1.setVisible(true);
+        current= new Member(loginNumber);
+        ArrayList<String> hoursArrayList;
+        Hours hours= new Hours(current.file);
+        try {
+            hoursArrayList=hours.displayingHours();
+            String hoursOutput="";
+            for(int i=0; i<hoursArrayList.size(); i++){
+                hoursOutput = hoursOutput+hoursArrayList.get(i)+"\n";
+            }
+            jTextPane1.setText(hoursOutput);
+        } catch (Throwable ex) {
+            //error message
+            jScrollPane1.setVisible(false);
+            JOptionPane.showMessageDialog(this, "The file is corrupt. Please retry at a later time.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton3MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -356,11 +481,14 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -368,5 +496,6 @@ public class Panel01_LoginScreen extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
 }

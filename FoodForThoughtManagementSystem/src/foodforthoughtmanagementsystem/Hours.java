@@ -147,7 +147,7 @@ public class Hours {
             }
             fileInfo.add("Total Hours: " + totalHours);
             //getting the info for the actual amount 
-            fileInfo.add("  Date        Activity    Time In     Time Out    Hours Earned    Verified");
+            fileInfo.add("        Date              Activity             Time In     Time Out  Hours Earned    Verified");
             for (int b = 0; b < totalLineNum; b++) {
                 line = file.readLine();
                 splitLine = line.split(",");
@@ -170,10 +170,10 @@ public class Hours {
                 info=info+("        " + timeIn + "        " + timeOut + "        " + hoursEarned);
                 //getting the amount of logged vs. unlogged hours 
                 if (verify == 0) {
-                    info=info+("        No");
+                    info=info+("                          No");
                     unlogHours++;
                 } else {
-                    info=info+("        Yes");
+                    info=info+("                          Yes");
                     logHours++;
                 }
                 //store the amount info into the array list 

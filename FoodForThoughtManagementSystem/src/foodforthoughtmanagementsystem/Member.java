@@ -37,15 +37,15 @@ public class Member {
         user = u;
         //create or call file 
         try {
-            //file = new RandomAccessFile((getUser() + ".txt"), "rw");
-            file = new RandomAccessFile(("user.txt"), "rw");
+            file = new RandomAccessFile((getUser() + ".txt"), "rw");
+            //file = new RandomAccessFile(("user.txt"), "rw");
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There was an error. ");
         }
         //create hours class 
         b = new Hours(file);
         //newMember("P", "Allie", "LeNeve");
-        addHours("01/20/2018", "R", "01:00", "02:00", 0);
+        //addHours("01/20/2018", "R", "01:00", "02:00", 0);
         //verify(1);
     }
 
@@ -75,9 +75,9 @@ public class Member {
         //b.displayingHours();
     }
     
-    public void displayingHours(){
-      b.displayingHours();
-    }
+//    public void displayingHours(){
+//      b.displayingHours();
+//    }
     public void verify(int lineNumber) {
         b.verify(lineNumber);
     }
